@@ -5,11 +5,12 @@
  * date         20220720
  * @filename    SimEstate.java
  * @author      curtiswong
- * @version     1.0.4 
+ * @version     1.0.5 
  * @see         N/A
  */
 
 package com.mycompany.simestate;
+import java.awt.Component;
 import java.awt.Dialog;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
@@ -21,9 +22,9 @@ import javax.swing.DefaultComboBoxModel;
 public class SimEstate extends javax.swing.JFrame {
     
     private Map<Place, List<Road>> adjacencyList;
-    static ArrayList<ResidentialBuilding> residentialBuildings = new ArrayList<>();
-    static ArrayList<Place> places = new ArrayList<>();
-    static ArrayList<Road> roads = new ArrayList<>();
+    public static ArrayList<ResidentialBuilding> residentialBuildings = new ArrayList<>();
+    public static ArrayList<Place> places = new ArrayList<>();
+    public static ArrayList<Road> roads = new ArrayList<>();
     
     DefaultComboBoxModel landmarkOptions;
     String contractAddress;
@@ -44,8 +45,8 @@ public class SimEstate extends javax.swing.JFrame {
         chkCThree.setVisible(false);
         cmbFieldFive.setVisible(false);
         
-        places.add(new CommunityCentre("12 Ach Pal", "CC-01", "Hard Point Centre", 9, 4, true, true, false)); // preset starter landmarks
-        residentialBuildings.add(new House("17 Hoover", "HH-01", 100.0, 2, 2, 0.0, 3, 2, 300.0));
+//        places.add(new CommunityCentre("12 Ach Pal", "CC-01", "Hard Point Centre", 9, 4, true, true, false)); // preset starter landmarks
+//        residentialBuildings.add(new House("17 Hoover", "HH-01", 100.0, 2, 2, 0.0, 3, 2, 300.0));
     }
 
     @SuppressWarnings("unchecked")
@@ -450,7 +451,7 @@ public class SimEstate extends javax.swing.JFrame {
         lblFieldFour.setBounds(460, 290, 90, 20);
 
         cmbFieldFour.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 13)); // NOI18N
-        cmbFieldFour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pre School", "Elementary", "Secondary", "Post-Secondary" }));
+        cmbFieldFour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elementary", "Secondary", "Post-Secondary" }));
         jPanel6.add(cmbFieldFour);
         cmbFieldFour.setBounds(560, 290, 115, 24);
 
@@ -548,12 +549,12 @@ public class SimEstate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginActionPerformed
-        screenRoute(dSimModes);
+        screenRoute(dSimModes, jPanel1);
     }//GEN-LAST:event_btnBeginActionPerformed
 
     private void btnCDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCDesActionPerformed
         if((txtCAddress.getText().toLowerCase()).contains("st") || (txtCAddress.getText().toLowerCase()).contains("ave") || (txtCAddress.getText().toLowerCase()).contains("rd") || (txtCAddress.getText().toLowerCase()).contains("ln") || (txtCAddress.getText().toLowerCase()).contains("blvd") || (txtCAddress.getText().toLowerCase()).contains("dr")) {
-            if(addressSearch(txtCAddress.getText(), residentialBuildings) != null) {
+            if(addressSearch(txtCAddress.getText(), residentialBuildings) != null && addressSearch(String.valueOf(txtCAddress.getText()), places) != null) {
                 cDesFeedback.setText("Address has already been taken");
                 return;
             }
@@ -565,7 +566,7 @@ public class SimEstate extends javax.swing.JFrame {
                     contractDistance = Integer.valueOf(txtCDistance.getText());
                     contractStart = String.valueOf(cmbCDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbCDes.getSelectedItem()), residentialBuildings): nameSearch(String.valueOf(cmbCDes.getSelectedItem()), places);
                     if(contractStart != null) {
-                        screenRoute(dContractBuild);
+                        screenRoute(dContractBuild, jPanel2);
                     }
                 }
             } catch (NumberFormatException e) {
@@ -583,7 +584,7 @@ public class SimEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCDesTypeActionPerformed
 
     private void btnGovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGovActionPerformed
-        screenRoute(dGovDes);
+        screenRoute(dGovDes, jPanel4);
         cmbGDes.setModel(desModel(cmbGDesType));
     }//GEN-LAST:event_btnGovActionPerformed
 
@@ -592,11 +593,13 @@ public class SimEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuyerActionPerformed
 
     private void btnContractorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractorActionPerformed
-        screenRoute(dContractDes);
+        screenRoute(dContractDes, jPanel4);
         cmbCDes.setModel(desModel(cmbCDesType));
     }//GEN-LAST:event_btnContractorActionPerformed
 
     private void cmbCBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCBuildTypeActionPerformed
+        String[] floorModel = {"1", "2", "3", "4", "5", "6"};
+        cmbCFloors.setModel(new DefaultComboBoxModel<>(floorModel));
         chkCOne.setVisible(false);
         chkCTwo.setVisible(false);
         chkCThree.setVisible(false);
@@ -610,12 +613,15 @@ public class SimEstate extends javax.swing.JFrame {
             cmbCParking.setVisible(true);
             
         } else {
+            String[] tempModel = {"10", "20", "30", "50"};
+            cmbCFloors.setModel(new DefaultComboBoxModel<>(tempModel));
             chkCOne.setVisible(true);
             chkCOne.setText("Pool");
             chkCTwo.setVisible(true);
             chkCTwo.setText("Gym");
             chkCThree.setVisible(true);
             chkCThree.setText("Tennis Court");
+            
             
             lblConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/apartmentConfig.png")));          
         }
@@ -654,7 +660,8 @@ public class SimEstate extends javax.swing.JFrame {
             }
 
             System.out.println(residentialBuildings.get(residentialBuildings.size()-1).getId() + " " + roads.get(roads.size()-1).toString());
-        
+            
+            screenRoute(dSimModes, jPanel3);
         } catch (NumberFormatException e) {
             System.out.println(e);
             cBuildFeedback.setText("Area Input malformed, please retry");
@@ -676,10 +683,10 @@ public class SimEstate extends javax.swing.JFrame {
                     govDistance = Integer.valueOf(txtGDistance.getText());
                     govStart = String.valueOf(cmbGDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbGDes.getSelectedItem()), residentialBuildings): nameSearch(String.valueOf(cmbGDes.getSelectedItem()), places);
                     
-                    if(!txtGName.getText().isEmpty() || nameSearch(txtGName.getText(), places) != null) {
-                        screenRoute(dGovBuild);
+                    if(!txtGName.getText().isEmpty() && govStart != null && nameSearch(txtGName.getText(), places) == null && addressSearch(String.valueOf(txtGAddress.getText()), residentialBuildings) == null && addressSearch(String.valueOf(txtGAddress.getText()), places) == null) {
+                        screenRoute(dGovBuild, jPanel5);
                     } else {
-                        gDesFeedback.setText("Invalid Name, Taken or Empty");
+                        gDesFeedback.setText("Invalid Name or Address, already taken");
                     }
                 }
             } catch (NumberFormatException e) {
@@ -716,6 +723,7 @@ public class SimEstate extends javax.swing.JFrame {
             places.add(landmark);
             roads.add(new Road(govStart, landmark, govDistance));
             System.out.println(places.get(places.size()-1).getId() + " " + roads.get(roads.size()-1).toString());
+            screenRoute(dSimModes, jPanel6);
         } catch (NumberFormatException e) {
             System.out.println(e);
             gBuildFeedback.setText("Input malformed, Numbers only");
@@ -731,7 +739,7 @@ public class SimEstate extends javax.swing.JFrame {
         
         if(cmbGBuildType.getSelectedItem().equals("School")) {
             cmbFieldFour.setVisible(true);
-            govConfig("Ranking:", "Private:", "Tuition:", "Grade Level", "Special Programs:", new String[]{"+10", "+20", "+50", "+100"}, new String[]{"true", "false"}, new String[] {"Pre School", "Elementary", "Secondary", "Post-Secondary"}, new String[]{"IB", "AP", "Gifted", "French Immersion"});
+            govConfig("Ranking:", "Private:", "Tuition:", "Grade Level", "Special Programs:", new String[]{"+10", "+20", "+50", "+100"}, new String[]{"true", "false"}, new String[] {"Elementary", "Secondary", "Post-Secondary"}, new String[]{"IB", "Gifted", "French Immersion"});
             
             ameninitySet("iB", "Gifted", "French");
         }
@@ -803,14 +811,107 @@ public class SimEstate extends javax.swing.JFrame {
                 SimEstate frame = new SimEstate();
                 frame.setSize(735, 445);
                 frame.setVisible(true);
+                
+                // ---------------------------------------------DEFAULT CONFIG--------------------------------------------------------------------------//
+                House house1 = new House("141 CAMBRIDGE CRES", "HH-01", 1, 7, 7, 4490000, 4, 3, 200);
+                House house2 = new House("88 Briggs Avenue", "HH-02", 1, 5, 8, 3590000, 6, 4, 100);
+                House house3 = new House("80 Alpine Cres", "HH-03", 1, 4, 5, 1780000, 5, 3, 80);
+                House house4 = new House("365 Neal Dr", "HH-04", 1, 4, 5, 1588888, 4, 4, 60);
+                House house5 = new House("11521 95 Avenue", "HH-05", 1, 2, 4, 1358000, 4, 4, 50);
+
+                //Create example Places (Parks)
+                Park park1 = new Park("133 Main Street", "PK-01", "Central Park", 5000.0, 9, true, true, true);
+                Park park2 = new Park("496 Elm Street", "PK-02", "Riverside Park", 3000.0, 8, false, true, false);
+                Park park3 = new Park("701 Oak Street", "PK-03", "Greenwood Park", 4000.0, 7, true, false, true);
+
+                //Create example places (Emergency Services)
+                // Create two fire stations
+                EmergencyServiceStation fireStation1 = new EmergencyServiceStation("658 Bloor Street", "fs1", "Fire Station 1", 9, 2, "Fire");
+                EmergencyServiceStation fireStation2 = new EmergencyServiceStation("2201 Bathurst Street", "ES-01", "Fire Station 2", 8, 3, "Fire");
+                // Create one police station
+                EmergencyServiceStation policeStation = new EmergencyServiceStation("453 Yonge Street", "ES-01", "Police Station 1", 9, 2, "Police");
+
+                // Create four bus stops and four subway stations with unique addresses
+                BusStop busStop1 = new BusStop("9001 Yonge Street", "BS-01", "Bus Stop 1", 8);
+                BusStop busStop2 = new BusStop("323 Dundas Street West", "BS-02", "Bus Stop 2", 6);
+                BusStop busStop3 = new BusStop("755 College Street", "BS-03", "Bus Stop 3", 7);
+                BusStop busStop4 = new BusStop("77 Front Street West", "BS-04", "Bus Stop 4", 5);
+                SubwayStation subwayStation1 = new SubwayStation("4242 Broadway", "SW-01", "Station 1", 8);
+                SubwayStation subwayStation2 = new SubwayStation("4554 5th Avenue", "SW-02", "Station 2", 6);
+                SubwayStation subwayStation3 = new SubwayStation("121 Lexington Avenue", "SW-03", "Station 3", 7);
+                SubwayStation subwayStation4 = new SubwayStation("24 Park Avenue", "SW-04", "Station 4", 5);
+
+                // Create an apartment building
+                Apartment apartment1 = new Apartment("344 Shepherd Ave", "APA-001", 100, 1, 2, 800000, 100, 6, 500, true, true, true);
+
+                //Create 3 schools
+                School elementarySchool = new School("3292 Oak Street", "SS-01", "Oak Elementary School", 8, false, 5000.0, "Elementary", false, false, true);
+                School secondarySchool = new School("32 Maple Avenue", "SS-02", "Northern Heights Secondary School", 9, false, 8000.0, "Secondary", true, false, false);
+                School uOfT = new School("65 St. George", "SS-03", "University of Toronto", 7, true, 10000.0, "Post-Secondary", true, true, true);
+
+                //Create Other Buildings
+                GarbageDisposal garbageDisposal = new GarbageDisposal("10 Keele Avenue", "GD-01", "Recycle Center", 7);
+                GroceryStore groceryStore1 = new GroceryStore("139 Orange Street", "GS-01", "SuperMart", 2, 500, 8, true, true);
+                GroceryStore groceryStore2 = new GroceryStore("11 Apple Avenue", "GS-02", "FreshGrocers", 1, 300, 7, false, true);
+                Mall mall1 = new Mall("365 Bayview Avenue", "ML-01", "Prestige Shopping Centre", 4, 2000, 130, true, true);
+                CommunityCentre communityCentre1 = new CommunityCentre("34 Yonge Street", "CC-01", "LiveWell Centre", 8, 3, true, true, true);
+
+                // Add places to the places lists
+                Place[] fillArray = {house1, house2, house3, house4, house5, apartment1, park1, park2, park3, fireStation1, fireStation2, policeStation, busStop1, busStop2, busStop3, busStop4,
+                    subwayStation1, subwayStation2, subwayStation3, subwayStation4, elementarySchool, secondarySchool, uOfT, garbageDisposal, groceryStore1, groceryStore2, mall1, communityCentre1};
+
+                residentialBuildings.add(house1);
+                residentialBuildings.add(house2);
+                residentialBuildings.add(house3);
+                residentialBuildings.add(house4);
+                residentialBuildings.add(house5);
+                residentialBuildings.add(apartment1);
+
+                for (int j = 0; j < fillArray.length; j++) {
+                    places.add(fillArray[j]);
+                }
+
+                // Create example Roads
+                for (int i = 0; i < places.size(); i++) {
+                    for (int j = i + 1; j < places.size(); j++) {
+                        Place source = places.get(i);
+                        Place destination = places.get(j);
+                        int distance = (int) (Math.random() * 100);
+                        roads.add(new Road(source, destination, distance));
+                    }
+                }
+
+                // Create reverse directions of roads and add them to the original list
+                ArrayList<Road> reverseRoads = new ArrayList<>();
+                for (Road road : roads) {
+                    reverseRoads.add(new Road(road.getEnd(), road.getStart(), road.getDistance()));
+                }
+                roads.addAll(reverseRoads);
+
+                // Each residential building's distance to all other places
+                for (ResidentialBuilding rb : residentialBuildings) {
+                    calculateAllDistancesForAHome(rb);
+                    rb.sortDistances();
+                }
             }
         });
     }
     
-    public void screenRoute(javax.swing.JDialog dialog) {
+    public void screenRoute(javax.swing.JDialog dialog, javax.swing.JPanel panel) {
         dialog.setSize(735, 445);
         dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        
         dialog.setVisible(true);
+        
+        for (Component control : panel.getComponents()) { // iterate through all textfields and combo boxes on the last screen and clear them
+            if (control instanceof javax.swing.JTextField) {
+                javax.swing.JTextField ctrl = (javax.swing.JTextField) control;
+                ctrl.setText("");
+            } else if (control instanceof javax.swing.JComboBox) {
+                javax.swing.JComboBox ctr = (javax.swing.JComboBox) control;
+                ctr.setSelectedIndex(0);
+            }
+        }
     }
     
     public DefaultComboBoxModel<String> desModel(javax.swing.JComboBox combo) {
@@ -875,7 +976,7 @@ public class SimEstate extends javax.swing.JFrame {
         return null;
     }
     
-    public Place addressSearch(String address, ArrayList<ResidentialBuilding> residences) {
+    public Place addressSearch(String address, ArrayList<? extends Place> residences) {
         for(int i = 0; i < residences.size(); i++) {
             if(residences.get(i).getAddress().equals(address)) {
                 return residences.get(i);
@@ -906,6 +1007,55 @@ public class SimEstate extends javax.swing.JFrame {
     }
     
     
+    //-------------------------------------ALGORITHMS-------------------------------------------------//
+        
+    // Method to calculate the distance between a home to all other places
+    public static void calculateAllDistancesForAHome(ResidentialBuilding home) {
+        // Create a new adjacency list to store the connections between places and roads
+        Map<Place, List<Road>> adjacencyList = new HashMap<>();
+
+        // Build the adjacency list by adding neighbor roads for each place
+        for (Place place : places) {
+            List<Road> neighborRoads = new ArrayList<>();
+            for (Road road : roads) {
+                if (road.getStart() == place) {
+                    neighborRoads.add(road);
+                }
+            }
+            adjacencyList.put(place, neighborRoads);
+        }
+
+        // Run Dijkstra's algorithm with the example adjacency list
+        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(adjacencyList);
+        // Create a distanceMap to store the distances from this house to all places
+        Map<Place, Integer> distanceMap = dijkstra.shortestPaths(home);
+
+        // Output the shortest paths from Place A to all other Places
+        for (Place place : distanceMap.keySet()) {
+            if (place instanceof Hospital) {
+                home.addHospitalDistance(distanceMap.get(place));
+            } else if (place instanceof CommunityCentre) {
+                home.addCommunityCentreDistance(distanceMap.get(place));
+            } else if (place instanceof School) {
+                home.addSchoolDistance(distanceMap.get(place));
+            } else if (place instanceof Mall) {
+                home.addMallDistance(distanceMap.get(place));
+            } else if (place instanceof GroceryStore) {
+                home.addGroceryStoreDistance(distanceMap.get(place));
+            } else if (place instanceof Park) {
+                home.addParkDistance(distanceMap.get(place));
+            } else if (place instanceof BusStop) {
+                home.addBusStopDistance(distanceMap.get(place));
+            } else if (place instanceof SubwayStation) {
+                home.addSubwayStationDistance(distanceMap.get(place));
+            }
+
+            // Print the shortest distance from the home to the current place
+            if (!(place instanceof ResidentialBuilding)) {
+                System.out.println("Shortest distance from " + home.getAddress() + " to " + place.getName() + " at " + place.getAddress() + ": " + distanceMap.get(place) + " km");
+            }
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
