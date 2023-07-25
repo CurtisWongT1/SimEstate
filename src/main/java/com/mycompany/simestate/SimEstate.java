@@ -1,11 +1,11 @@
 /*
  * 
  * 
- * modified     20230724
+ * modified     20230725
  * date         20220720
  * @filename    SimEstate.java
  * @author      curtiswong
- * @version     1.0.5 
+ * @version     1.0.7 
  * @see         N/A
  */
 
@@ -14,6 +14,8 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 
 /**
  *
@@ -44,9 +46,6 @@ public class SimEstate extends javax.swing.JFrame {
         chkCTwo.setVisible(false);
         chkCThree.setVisible(false);
         cmbFieldFive.setVisible(false);
-        
-//        places.add(new CommunityCentre("12 Ach Pal", "CC-01", "Hard Point Centre", 9, 4, true, true, false)); // preset starter landmarks
-//        residentialBuildings.add(new House("17 Hoover", "HH-01", 100.0, 2, 2, 0.0, 3, 2, 300.0));
     }
 
     @SuppressWarnings("unchecked")
@@ -117,6 +116,37 @@ public class SimEstate extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         gBuildFeedback = new javax.swing.JTextArea();
         backdropGBuild = new javax.swing.JLabel();
+        dBuyer = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        lblPrice = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        lblArea = new javax.swing.JLabel();
+        lblYard = new javax.swing.JLabel();
+        lblFloors = new javax.swing.JLabel();
+        lblBedrooms = new javax.swing.JLabel();
+        lblBathrooms = new javax.swing.JLabel();
+        lblParking = new javax.swing.JLabel();
+        lblUnits = new javax.swing.JLabel();
+        lblGym = new javax.swing.JLabel();
+        lblBonus = new javax.swing.JLabel();
+        btnProximity = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        buyList = new javax.swing.JList<>();
+        backdropBuy = new javax.swing.JLabel();
+        dProximity = new javax.swing.JDialog();
+        jPanel8 = new javax.swing.JPanel();
+        lblHP = new javax.swing.JLabel();
+        lblCC = new javax.swing.JLabel();
+        lblES = new javax.swing.JLabel();
+        lblS1 = new javax.swing.JLabel();
+        lblS2 = new javax.swing.JLabel();
+        lblS3 = new javax.swing.JLabel();
+        lblML = new javax.swing.JLabel();
+        lblGS = new javax.swing.JLabel();
+        lblPK = new javax.swing.JLabel();
+        lblBS = new javax.swing.JLabel();
+        lblSW = new javax.swing.JLabel();
+        backdropNearest = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnBegin = new javax.swing.JButton();
         backDrop = new javax.swing.JLabel();
@@ -395,7 +425,7 @@ public class SimEstate extends javax.swing.JFrame {
         jPanel6.setLayout(null);
 
         cmbGBuildType.setFont(new java.awt.Font("Microsoft PhagsPa", 0, 14)); // NOI18N
-        cmbGBuildType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "School", "Store", "Mall", "Hospital", "Emergency Services", "Community Centre", "Park", "Disposal Centre", "Bus Stop", "Subway" }));
+        cmbGBuildType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "School", "Store", "Mall", "Hospital", "Emergency Service", "Community Centre", "Park", "Disposal Centre", "Bus Stop", "Subway" }));
         cmbGBuildType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGBuildTypeActionPerformed(evt);
@@ -476,9 +506,9 @@ public class SimEstate extends javax.swing.JFrame {
         chkGTwo.setForeground(new java.awt.Color(51, 51, 51));
         chkGTwo.setText("Gifted");
         jPanel6.add(chkGTwo);
-        chkGTwo.setBounds(520, 380, 80, 22);
+        chkGTwo.setBounds(530, 380, 80, 22);
 
-        chkGThree.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        chkGThree.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         chkGThree.setForeground(new java.awt.Color(51, 51, 51));
         chkGThree.setText("French");
         jPanel6.add(chkGThree);
@@ -508,6 +538,186 @@ public class SimEstate extends javax.swing.JFrame {
         dGovBuildLayout.setVerticalGroup(
             dGovBuildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+        );
+
+        dBuyer.setPreferredSize(new java.awt.Dimension(720, 405));
+
+        jPanel7.setLayout(null);
+
+        lblPrice.setFont(new java.awt.Font("Trebuchet MS", 1, 28)); // NOI18N
+        lblPrice.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblPrice);
+        lblPrice.setBounds(430, 53, 250, 30);
+
+        lblAddress.setFont(new java.awt.Font("Trebuchet MS", 1, 23)); // NOI18N
+        lblAddress.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblAddress);
+        lblAddress.setBounds(358, 100, 320, 30);
+
+        lblArea.setFont(new java.awt.Font("Trebuchet MS", 1, 10)); // NOI18N
+        lblArea.setForeground(new java.awt.Color(199, 223, 220));
+        lblArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel7.add(lblArea);
+        lblArea.setBounds(390, 150, 60, 15);
+
+        lblYard.setFont(new java.awt.Font("Trebuchet MS", 1, 10)); // NOI18N
+        lblYard.setForeground(new java.awt.Color(199, 223, 220));
+        lblYard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel7.add(lblYard);
+        lblYard.setBounds(630, 190, 60, 15);
+
+        lblFloors.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblFloors.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblFloors);
+        lblFloors.setBounds(417, 190, 30, 15);
+
+        lblBedrooms.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblBedrooms.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblBedrooms);
+        lblBedrooms.setBounds(550, 150, 30, 15);
+
+        lblBathrooms.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblBathrooms.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblBathrooms);
+        lblBathrooms.setBounds(550, 190, 30, 15);
+
+        lblParking.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblParking.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblParking);
+        lblParking.setBounds(650, 150, 30, 15);
+
+        lblUnits.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblUnits.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblUnits);
+        lblUnits.setBounds(420, 170, 40, 15);
+
+        lblGym.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblGym.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel7.add(lblGym);
+        lblGym.setBounds(650, 170, 30, 15);
+
+        lblBonus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proxBonus.png"))); // NOI18N
+        jPanel7.add(lblBonus);
+        lblBonus.setBounds(360, 220, 220, 25);
+
+        btnProximity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info.png"))); // NOI18N
+        btnProximity.setBorder(null);
+        btnProximity.setBorderPainted(false);
+        btnProximity.setContentAreaFilled(false);
+        btnProximity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximityActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnProximity);
+        btnProximity.setBounds(640, 225, 40, 20);
+
+        jScrollPane6.setBorder(null);
+
+        buyList.setBackground(new java.awt.Color(199, 223, 220));
+        buyList.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buyList.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        buyList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        buyList.setFixedCellHeight(35);
+        buyList.setFixedCellWidth(200);
+        buyList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        buyList.setVerifyInputWhenFocusTarget(false);
+        buyList.setVisibleRowCount(2);
+        buyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                buyListValueChanged(evt);
+            }
+        });
+        jScrollPane6.setViewportView(buyList);
+
+        jPanel7.add(jScrollPane6);
+        jScrollPane6.setBounds(140, 290, 440, 90);
+
+        backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy House.png"))); // NOI18N
+        jPanel7.add(backdropBuy);
+        backdropBuy.setBounds(0, 0, 720, 410);
+
+        javax.swing.GroupLayout dBuyerLayout = new javax.swing.GroupLayout(dBuyer.getContentPane());
+        dBuyer.getContentPane().setLayout(dBuyerLayout);
+        dBuyerLayout.setHorizontalGroup(
+            dBuyerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        dBuyerLayout.setVerticalGroup(
+            dBuyerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel8.setLayout(null);
+
+        lblHP.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblHP.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblHP);
+        lblHP.setBounds(135, 83, 60, 20);
+
+        lblCC.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblCC.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblCC);
+        lblCC.setBounds(375, 83, 60, 20);
+
+        lblES.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblES.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblES);
+        lblES.setBounds(230, 123, 110, 20);
+
+        lblS1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblS1.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblS1);
+        lblS1.setBounds(270, 160, 110, 20);
+
+        lblS2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblS2.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblS2);
+        lblS2.setBounds(270, 183, 110, 20);
+
+        lblS3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblS3.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblS3);
+        lblS3.setBounds(300, 206, 110, 20);
+
+        lblML.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblML.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblML);
+        lblML.setBounds(100, 246, 60, 20);
+
+        lblGS.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblGS.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblGS);
+        lblGS.setBounds(240, 246, 60, 20);
+
+        lblPK.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblPK.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblPK);
+        lblPK.setBounds(370, 246, 60, 20);
+
+        lblBS.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblBS.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblBS);
+        lblBS.setBounds(140, 293, 110, 20);
+
+        lblSW.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblSW.setForeground(new java.awt.Color(199, 223, 220));
+        jPanel8.add(lblSW);
+        lblSW.setBounds(375, 293, 60, 20);
+
+        backdropNearest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Nearest.png"))); // NOI18N
+        jPanel8.add(backdropNearest);
+        backdropNearest.setBounds(0, 0, 450, 390);
+
+        javax.swing.GroupLayout dProximityLayout = new javax.swing.GroupLayout(dProximity.getContentPane());
+        dProximity.getContentPane().setLayout(dProximityLayout);
+        dProximityLayout.setHorizontalGroup(
+            dProximityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+        );
+        dProximityLayout.setVerticalGroup(
+            dProximityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -584,17 +794,29 @@ public class SimEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCDesTypeActionPerformed
 
     private void btnGovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGovActionPerformed
-        screenRoute(dGovDes, jPanel4);
+        dGovDes.setSize(735, 445);
+        dGovDes.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         cmbGDes.setModel(desModel(cmbGDesType));
+        dGovDes.setVisible(true);
     }//GEN-LAST:event_btnGovActionPerformed
 
     private void btnBuyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyerActionPerformed
-        // TODO add your handling code here:
+        DefaultListModel listModel = new DefaultListModel();
+        for (int i = 0; i < residentialBuildings.size(); i++) {
+            listModel.addElement(residentialBuildings.get(i).getAddress());
+        }
+
+        buyList.setModel(listModel);
+        buyList.setSelectedIndex(-1);
+        screenRoute(dBuyer, jPanel4);        
     }//GEN-LAST:event_btnBuyerActionPerformed
 
     private void btnContractorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractorActionPerformed
-        screenRoute(dContractDes, jPanel4);
+        dContractDes.setSize(735, 445);
+        dContractDes.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         cmbCDes.setModel(desModel(cmbCDesType));
+        dContractDes.setVisible(true);
+        
     }//GEN-LAST:event_btnContractorActionPerformed
 
     private void cmbCBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCBuildTypeActionPerformed
@@ -632,7 +854,6 @@ public class SimEstate extends javax.swing.JFrame {
             double yardArea = Double.valueOf(String.valueOf(txtCYardArea.getText()));
             int numBathrooms = comboExtract(cmbCBathrooms);
             int numBedrooms = comboExtract(cmbCBedrooms);
-            double price = 0.0;
             int parkingSpaces = comboExtract(cmbCParking);
             int numFloors = comboExtract(cmbCFloors);
             double area = Double.valueOf(String.valueOf(txtCArea.getText()));
@@ -640,28 +861,56 @@ public class SimEstate extends javax.swing.JFrame {
             if(yardArea <= 0 || area <= 0) {
                 cBuildFeedback.setText("Area must exceed 0");
                 return;
-            }
-            
+            } 
             if(cmbCBuildType.getSelectedItem().equals("House")) {
-                House house = new House(contractAddress, "HH-" + nextID("HH", residentialBuildings), yardArea, numBathrooms, numBedrooms, price, parkingSpaces, numFloors, area);
+                House house = new House(contractAddress, "HH-" + nextID("HH", residentialBuildings), yardArea, numBathrooms, numBedrooms, 0, parkingSpaces, numFloors, area);
+                
+                house.setPrice(House.calculateHousePrice(yardArea, numBathrooms, numBedrooms, parkingSpaces, area));
                 residentialBuildings.add(house);
+                places.add(house);
                 roads.add(new Road(contractStart, house, contractDistance));
+                roads.add(new Road(house, contractStart, contractDistance));
+                
+                double initialPrice = house.getPrice();
+                calculateAllDistancesForAHome(house);
+                house.sortDistances();
+                house.setBonus(initialPrice < house.getPrice() ? true : false);
             } 
             else if (cmbCBuildType.getSelectedItem().equals("Townhouse")) {         
-                Townhouse townHouse = new Townhouse(contractAddress, "TH-" + nextID("TH", residentialBuildings), numBathrooms, numBedrooms, 0, price, parkingSpaces, numFloors, area, yardArea);
+                Townhouse townHouse = new Townhouse(contractAddress, "TH-" + nextID("TH", residentialBuildings), numBathrooms, numBedrooms, 0, parkingSpaces, numFloors, area, yardArea);
+                
+                townHouse.setPrice(Townhouse.calculateHousePrice(yardArea, numBathrooms, numBedrooms, parkingSpaces, yardArea));
                 residentialBuildings.add(townHouse);
+                places.add(townHouse);
                 roads.add(new Road(contractStart, townHouse, contractDistance));
+                roads.add(new Road(townHouse, contractStart, contractDistance));
+                
+                double initialPrice = townHouse.getPrice();
+                calculateAllDistancesForAHome(townHouse);
+                townHouse.sortDistances();
+                townHouse.setBonus(initialPrice < townHouse.getPrice() ? true : false);
 
             } else {
-                int unitsbyFloor = Integer.valueOf(txtCYardArea.getText());
-                Apartment apartment = new Apartment(contractAddress, "AB-" + nextID("AB", residentialBuildings), numBathrooms, numBedrooms, unitsbyFloor, price, parkingSpaces, numFloors, area, chkCOne.isSelected(), chkCTwo.isSelected(), chkCThree.isSelected());
+                int numUnits = Integer.valueOf(txtCYardArea.getText());
+                Apartment apartment = new Apartment(contractAddress, "AB-" + nextID("AB", residentialBuildings), numUnits, numBathrooms, numBedrooms, 0, parkingSpaces, numFloors, area, chkCOne.isSelected(), chkCTwo.isSelected(), chkCThree.isSelected());
+                apartment.setPrice(Apartment.calculateApartmentPrice(area, numBathrooms, numBedrooms));
+                
                 residentialBuildings.add(apartment);
+                places.add(apartment);
                 roads.add(new Road(contractStart, apartment, contractDistance));
+                roads.add(new Road(apartment, contractStart, contractDistance));
+                
+                double initialPrice = apartment.getPrice();
+                calculateAllDistancesForAHome(apartment);
+                apartment.sortDistances();
+                apartment.setBonus(initialPrice < apartment.getPrice() ? true : false);
             }
 
-            System.out.println(residentialBuildings.get(residentialBuildings.size()-1).getId() + " " + roads.get(roads.size()-1).toString());
+            System.out.println(residentialBuildings.get(residentialBuildings.size()-1).getId() + " " + roads.get(roads.size()-2).toString());
             
-            screenRoute(dSimModes, jPanel3);
+            dContractBuild.dispose();
+            dContractDes.dispose();
+            
         } catch (NumberFormatException e) {
             System.out.println(e);
             cBuildFeedback.setText("Area Input malformed, please retry");
@@ -684,6 +933,8 @@ public class SimEstate extends javax.swing.JFrame {
                     govStart = String.valueOf(cmbGDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbGDes.getSelectedItem()), residentialBuildings): nameSearch(String.valueOf(cmbGDes.getSelectedItem()), places);
                     
                     if(!txtGName.getText().isEmpty() && govStart != null && nameSearch(txtGName.getText(), places) == null && addressSearch(String.valueOf(txtGAddress.getText()), residentialBuildings) == null && addressSearch(String.valueOf(txtGAddress.getText()), places) == null) {
+                        govName = txtGName.getText();
+                        txtFieldThree.setText("");
                         screenRoute(dGovBuild, jPanel5);
                     } else {
                         gDesFeedback.setText("Invalid Name or Address, already taken");
@@ -704,13 +955,13 @@ public class SimEstate extends javax.swing.JFrame {
         Place landmark;
         
         try {
-            if(txtFieldThree.getText().isEmpty()) {
+            if(lblFieldThree.getText() != "" && txtFieldThree.getText().isEmpty()) {
                 gBuildFeedback.setText("Fill out all Fields");
                 return;
             }
             
             landmark = type.equals("School") ? new School(govAddress, "SS-" + nextID("SS", places), govName, Integer.valueOf((String.valueOf(cmbFieldOne.getSelectedItem())).substring(1)), Boolean.parseBoolean(String.valueOf(cmbFieldTwo.getSelectedItem())), Integer.valueOf(String.valueOf(txtFieldThree.getText())), String.valueOf(cmbFieldFour.getSelectedItem()), chkGOne.isSelected(), chkGTwo.isSelected(), chkGThree.isSelected()) 
-                    : type.equals("Store") ? new GroceryStore(govAddress, "GS-" + nextID("GS", places), govName, comboExtract(cmbFieldTwo), Integer.valueOf(String.valueOf(txtFieldThree.getText())), comboExtract(cmbFieldFour), Boolean.parseBoolean(String.valueOf(cmbFieldFive.getSelectedItem())), Boolean.parseBoolean(String.valueOf(cmbFieldFive.getSelectedItem())))
+                    : type.equals("Store") ? new GroceryStore(govAddress, "GS-" + nextID("GS", places), govName, comboExtract(cmbFieldOne), Integer.valueOf(String.valueOf(txtFieldThree.getText())), comboExtract(cmbFieldTwo), Boolean.parseBoolean(String.valueOf(cmbFieldFour)), Boolean.parseBoolean(String.valueOf(cmbFieldFive.getSelectedItem())))
                     : type.equals("Mall") ? new Mall(govAddress, "ML-" + nextID("ML", places), govName, comboExtract(cmbFieldOne), comboExtract(cmbFieldTwo), Integer.valueOf(txtFieldThree.getText()), Boolean.parseBoolean(String.valueOf(cmbFieldFour.getSelectedItem())), Boolean.parseBoolean(String.valueOf(cmbFieldFive)))
                     : type.equals("Hospital") ? new Hospital(govAddress, "HP-" + nextID("HP", places), comboExtract(cmbFieldOne), comboExtract(cmbFieldTwo), govName, Integer.valueOf(String.valueOf(txtFieldThree.getText())))
                     : type.equals("Emergency Service") ? new EmergencyServiceStation(govAddress, "ES-" + nextID("ES", places), govName, Integer.valueOf(String.valueOf(cmbFieldOne.getSelectedItem())), comboExtract(cmbFieldTwo), String.valueOf(cmbFieldFour.getSelectedItem()))
@@ -722,8 +973,12 @@ public class SimEstate extends javax.swing.JFrame {
 
             places.add(landmark);
             roads.add(new Road(govStart, landmark, govDistance));
-            System.out.println(places.get(places.size()-1).getId() + " " + roads.get(roads.size()-1).toString());
+            roads.add(new Road(landmark, govStart, govDistance));
+            
+            System.out.println(places.get(places.size()-1).getId() + " " + roads.get(roads.size()-2).toString());
             screenRoute(dSimModes, jPanel6);
+            dGovBuild.dispose();
+            dGovDes.dispose();
         } catch (NumberFormatException e) {
             System.out.println(e);
             gBuildFeedback.setText("Input malformed, Numbers only");
@@ -731,6 +986,8 @@ public class SimEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGBuildActionPerformed
 
     private void cmbGBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGBuildTypeActionPerformed
+        cmbFieldTwo.setVisible(true);
+        txtFieldThree.setVisible(true);
         cmbFieldFour.setVisible(false);
         cmbFieldFive.setVisible(false);
         chkGOne.setVisible(false);
@@ -756,28 +1013,108 @@ public class SimEstate extends javax.swing.JFrame {
         else if(cmbGBuildType.getSelectedItem().equals("Hospital")) {
             govConfig("Sustainability", "Floors", "Capacity", "", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"1", "3", "10", "20"}, new String[] {}, new String[] {});
         }
-        else if(cmbGBuildType.getSelectedItem().equals("Emergency Services")) {
+        else if(cmbGBuildType.getSelectedItem().equals("Emergency Service")) {
+            txtFieldThree.setVisible(false);
             cmbFieldFour.setVisible(true);
             govConfig("Sustainability", "Floors", "", "Service Type", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"1", "3", "10", "20"}, new String[] {"Police", "Fire"}, new String[] {});
         }
         else if(cmbGBuildType.getSelectedItem().equals("Community Centre")) {
+            txtFieldThree.setVisible(false);
             govConfig("Sustainability", "Floors", "", "", "Ammenities", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"1", "2", "3", "4"}, new String[] {}, new String[] {});
             
             ameninitySet("Pool", "Gym", "Rink");
         }
         else if(cmbGBuildType.getSelectedItem().equals("Park")) {
+            cmbFieldTwo.setVisible(false);
             govConfig("Clean Rating", "", "Area", "", "Ammenities", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {}, new String[] {}, new String[] {});
             
             ameninitySet("Baseball", "Soccer", "Splash Pad");
         }
         else if(cmbGBuildType.getSelectedItem().equals("Disposal Centre")) {
+            cmbFieldTwo.setVisible(false);
+            txtFieldThree.setVisible(false);
             govConfig("Pollution", "", "", "", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {}, new String[] {}, new String[] {}); 
         }
         else {
+            cmbFieldTwo.setVisible(false);
+            txtFieldThree.setVisible(false);
             govConfig("Busyness", "", "", "", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {}, new String[] {}, new String[] {});
         }
         
     }//GEN-LAST:event_cmbGBuildTypeActionPerformed
+
+    private void buyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_buyListValueChanged
+        if (!evt.getValueIsAdjusting() && buyList.getSelectedIndex() != -1) { // only run on the mouse click release event
+            System.out.println(buyList.getSelectedIndex());
+            String adr = buyList.getSelectedValue();
+            System.out.println(adr);
+            ResidentialBuilding openHouse = ((ResidentialBuilding) addressSearch(adr, residentialBuildings));
+            
+            updateDistance(openHouse);
+            
+            lblUnits.setVisible(false);
+            lblGym.setVisible(false);
+            lblBathrooms.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            lblYard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            lblBonus.setIcon(openHouse.isBonus() == true ? new javax.swing.ImageIcon(getClass().getResource("/proxBonus.png")) : new javax.swing.ImageIcon(getClass().getResource("/proxPenalty.png")));
+            
+            if(openHouse.getId().contains("HH")) {
+                backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy House.png")));
+                lblYard.setText(String.valueOf(((House) openHouse).getBackyardSize()) + " sqft");
+                lblParking.setText(String.valueOf(openHouse.getParkingSpaces()));
+            }
+            else if(openHouse.getId().contains("TH")) {
+                backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy Townhouse.png")));
+                lblYard.setText(String.valueOf(((Townhouse) openHouse).getBackyardSize()) + " sqft");
+                lblParking.setText(String.valueOf(openHouse.getParkingSpaces()));
+            } else {
+                backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy Apartment.png")));
+                lblBathrooms.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+                lblYard.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+                
+                lblUnits.setVisible(true);
+                lblUnits.setText(String.valueOf(((Apartment) openHouse).getNumUnits()));
+                lblGym.setVisible(true);
+                lblGym.setText(String.valueOf(((Apartment) openHouse).getHasGym()));
+                lblParking.setText(String.valueOf(((Apartment) openHouse).getHasPool()));
+                lblYard.setText(String.valueOf(((Apartment) openHouse).getHasTennisCourt()));
+            }
+            
+            lblPrice.setText("$" + round(openHouse.getPrice()));
+            lblAddress.setText(adr.toUpperCase());
+            lblArea.setText(openHouse.getSurfaceArea() + " sqft");
+            lblFloors.setText(String.valueOf(openHouse.getNumFloors()));
+            lblBedrooms.setText(String.valueOf(openHouse.getNumBedrooms()));
+            lblBathrooms.setText(String.valueOf(openHouse.getNumBathrooms()));
+            
+            
+        }
+    }//GEN-LAST:event_buyListValueChanged
+
+    private void btnProximityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximityActionPerformed
+        if(buyList.getSelectedValue() != null) {
+            String adr = buyList.getSelectedValue();
+            System.out.println(adr);
+            ResidentialBuilding openHouse = (ResidentialBuilding) addressSearch(adr, residentialBuildings);
+            String[] proxArray = openHouse.getNearestDistances();
+
+            dProximity.setSize(465, 430);
+            dProximity.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+            lblHP.setText(proxArray[0] + " km");
+            lblCC.setText(proxArray[1] + " km");
+            lblES.setText(proxArray[2] + " km");
+            lblS1.setText(proxArray[3] + " km");
+            lblS2.setText(proxArray[4] + " km");
+            lblS3.setText(proxArray[5] + " km");
+            lblML.setText(proxArray[6] + " km");
+            lblGS.setText(proxArray[7] + " km");
+            lblPK.setText(proxArray[8] + " km");
+            lblBS.setText(proxArray[9] + " km");
+            lblSW.setText(proxArray[10] + " km");
+            
+            dProximity.setVisible(true);
+        }
+    }//GEN-LAST:event_btnProximityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -813,11 +1150,11 @@ public class SimEstate extends javax.swing.JFrame {
                 frame.setVisible(true);
                 
                 // ---------------------------------------------DEFAULT CONFIG--------------------------------------------------------------------------//
-                House house1 = new House("141 CAMBRIDGE CRES", "HH-01", 1, 7, 7, 4490000, 4, 3, 200);
-                House house2 = new House("88 Briggs Avenue", "HH-02", 1, 5, 8, 3590000, 6, 4, 100);
-                House house3 = new House("80 Alpine Cres", "HH-03", 1, 4, 5, 1780000, 5, 3, 80);
-                House house4 = new House("365 Neal Dr", "HH-04", 1, 4, 5, 1588888, 4, 4, 60);
-                House house5 = new House("11521 95 Avenue", "HH-05", 1, 2, 4, 1358000, 4, 4, 50);
+                House house1 = new House("141 CAMBRIDGE CRES", "HH-01", 1000, 7, 7, 0, 8, 3, 4000);
+                House house2 = new House("88 Briggs Avenue", "HH-02", 400, 3, 4, 0, 5, 4, 2500);
+                House house3 = new House("80 Alpine Cres", "HH-03", 350, 3, 3, 0, 3, 3, 2000);
+                House house4 = new House("365 Neal Dr", "HH-04", 200, 2, 3, 0, 4, 3, 1800);
+                House house5 = new House("11521 95 Avenue", "HH-05", 500, 2, 4, 0, 4, 4, 2200);
 
                 //Create example Places (Parks)
                 Park park1 = new Park("133 Main Street", "PK-01", "Central Park", 5000.0, 9, true, true, true);
@@ -826,10 +1163,10 @@ public class SimEstate extends javax.swing.JFrame {
 
                 //Create example places (Emergency Services)
                 // Create two fire stations
-                EmergencyServiceStation fireStation1 = new EmergencyServiceStation("658 Bloor Street", "fs1", "Fire Station 1", 9, 2, "Fire");
-                EmergencyServiceStation fireStation2 = new EmergencyServiceStation("2201 Bathurst Street", "ES-01", "Fire Station 2", 8, 3, "Fire");
+                EmergencyServiceStation fireStation1 = new EmergencyServiceStation("658 Bloor Street", "ES-01", "Fire Station 1", 9, 2, "Fire");
+                EmergencyServiceStation fireStation2 = new EmergencyServiceStation("2201 Bathurst Street", "ES-02", "Fire Station 2", 8, 3, "Fire");
                 // Create one police station
-                EmergencyServiceStation policeStation = new EmergencyServiceStation("453 Yonge Street", "ES-01", "Police Station 1", 9, 2, "Police");
+                EmergencyServiceStation policeStation = new EmergencyServiceStation("453 Yonge Street", "ES-03", "Police Station 1", 9, 2, "Police");
 
                 // Create four bus stops and four subway stations with unique addresses
                 BusStop busStop1 = new BusStop("9001 Yonge Street", "BS-01", "Bus Stop 1", 8);
@@ -842,7 +1179,7 @@ public class SimEstate extends javax.swing.JFrame {
                 SubwayStation subwayStation4 = new SubwayStation("24 Park Avenue", "SW-04", "Station 4", 5);
 
                 // Create an apartment building
-                Apartment apartment1 = new Apartment("344 Shepherd Ave", "APA-001", 100, 1, 2, 800000, 100, 6, 500, true, true, true);
+                Apartment apartment1 = new Apartment("344 Shepherd Ave", "AB-01", 100, 1, 2, 800000, 100, 6, 800, true, true, true);
 
                 //Create 3 schools
                 School elementarySchool = new School("3292 Oak Street", "SS-01", "Oak Elementary School", 8, false, 5000.0, "Elementary", false, false, true);
@@ -855,10 +1192,11 @@ public class SimEstate extends javax.swing.JFrame {
                 GroceryStore groceryStore2 = new GroceryStore("11 Apple Avenue", "GS-02", "FreshGrocers", 1, 300, 7, false, true);
                 Mall mall1 = new Mall("365 Bayview Avenue", "ML-01", "Prestige Shopping Centre", 4, 2000, 130, true, true);
                 CommunityCentre communityCentre1 = new CommunityCentre("34 Yonge Street", "CC-01", "LiveWell Centre", 8, 3, true, true, true);
+                Hospital hospital1 = new Hospital("311 Silver Avenue", "HP-01", 9, 6, "Baywell Hospital", 1000);
 
                 // Add places to the places lists
                 Place[] fillArray = {house1, house2, house3, house4, house5, apartment1, park1, park2, park3, fireStation1, fireStation2, policeStation, busStop1, busStop2, busStop3, busStop4,
-                    subwayStation1, subwayStation2, subwayStation3, subwayStation4, elementarySchool, secondarySchool, uOfT, garbageDisposal, groceryStore1, groceryStore2, mall1, communityCentre1};
+                    subwayStation1, subwayStation2, subwayStation3, subwayStation4, elementarySchool, secondarySchool, uOfT, garbageDisposal, groceryStore1, groceryStore2, mall1, communityCentre1, hospital1};
 
                 residentialBuildings.add(house1);
                 residentialBuildings.add(house2);
@@ -892,16 +1230,13 @@ public class SimEstate extends javax.swing.JFrame {
                 for (ResidentialBuilding rb : residentialBuildings) {
                     calculateAllDistancesForAHome(rb);
                     rb.sortDistances();
+                    rb.displayNearestDistances();
                 }
             }
         });
     }
     
     public void screenRoute(javax.swing.JDialog dialog, javax.swing.JPanel panel) {
-        dialog.setSize(735, 445);
-        dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        
-        dialog.setVisible(true);
         
         for (Component control : panel.getComponents()) { // iterate through all textfields and combo boxes on the last screen and clear them
             if (control instanceof javax.swing.JTextField) {
@@ -912,6 +1247,11 @@ public class SimEstate extends javax.swing.JFrame {
                 ctr.setSelectedIndex(0);
             }
         }
+        
+        dialog.setSize(735, 445);
+        dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setVisible(true);
+               
     }
     
     public DefaultComboBoxModel<String> desModel(javax.swing.JComboBox combo) {
@@ -927,7 +1267,9 @@ public class SimEstate extends javax.swing.JFrame {
         } else {
             ArrayList<String> markList = new ArrayList<String>();
             for(int i = 0; i < places.size(); i++) {
-                markList.add(places.get(i).getName());
+                if(places.get(i).getId().contains("HH") == false && places.get(i).getId().contains("AB") == false && places.get(i).getId().contains("TH") == false) {
+                    markList.add(places.get(i).getName());
+                }
             }
 
             DefaultComboBoxModel markModel = new DefaultComboBoxModel<>(markList.toArray((String[]::new)));
@@ -968,7 +1310,7 @@ public class SimEstate extends javax.swing.JFrame {
     
     public Place nameSearch(String name, ArrayList<Place> places) {
         for(int i = 0; i < places.size(); i++) {
-            if(places.get(i).getName().equals(name)) {
+            if(places.get(i).getName().equals(name.toLowerCase())) {
                 return places.get(i);
             }
         }
@@ -978,7 +1320,7 @@ public class SimEstate extends javax.swing.JFrame {
     
     public Place addressSearch(String address, ArrayList<? extends Place> residences) {
         for(int i = 0; i < residences.size(); i++) {
-            if(residences.get(i).getAddress().equals(address)) {
+            if(residences.get(i).getAddress().equals(address.toLowerCase())) {
                 return residences.get(i);
             }
         }
@@ -1006,6 +1348,19 @@ public class SimEstate extends javax.swing.JFrame {
         }
     }
     
+    public static double round(double number) {
+      // Multiply the number by 100 to shift the decimal point two places to the right
+      double roundedValue = number * 100;
+     
+      // Use Math.round() to round the shifted value to the nearest integer
+      roundedValue = Math.round(roundedValue);
+      
+      // Divide the rounded value by 100 to shift the decimal point back to its original position
+      roundedValue = roundedValue / 100;
+      
+      return roundedValue;
+  }
+    
     
     //-------------------------------------ALGORITHMS-------------------------------------------------//
         
@@ -1029,42 +1384,160 @@ public class SimEstate extends javax.swing.JFrame {
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(adjacencyList);
         // Create a distanceMap to store the distances from this house to all places
         Map<Place, Integer> distanceMap = dijkstra.shortestPaths(home);
-
-        // Output the shortest paths from Place A to all other Places
+        
+        double basePrice = home.getPrice();
+        // Output the shortest paths from Place A to all other Placesdouble initialPrice = basePrice;
         for (Place place : distanceMap.keySet()) {
             if (place instanceof Hospital) {
                 home.addHospitalDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.1 * ((100 - distanceMap.get(place)) / 100.0)); // distance
+                home.addPrice(basePrice * 0.0001 * ((Hospital) place).getMaxCapacity()); // capacity
             } else if (place instanceof CommunityCentre) {
                 home.addCommunityCentreDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.04 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((CommunityCentre) place).hasPool()) {
+                    home.addPrice(basePrice * 0.004);
+                }
+                if (((CommunityCentre) place).hasGym()) {
+                    home.addPrice(basePrice * 0.004);
+                }
+                if (((CommunityCentre) place).hasRink()) {
+                    home.addPrice(basePrice * 0.004);
+                }
             } else if (place instanceof School) {
-                home.addSchoolDistance(distanceMap.get(place));
+                School school = (School) place;
+                if (school.getSchoolGrade().equals("Elementary")) {
+                    home.addElementaryDistance(distanceMap.get(place));
+                } else if (school.getSchoolGrade().equals("Post-Secondary")) {
+                    home.addSecondaryDistance(distanceMap.get(place));
+                } else {
+                    home.addPostSecondaryDistance(distanceMap.get(place));
+                }
+                home.addPrice(basePrice * 0.1 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((School) place).getRanking() == 10) {
+                    home.addPrice(basePrice * 0.05);
+                } else if (((School) place).getRanking() < 20){
+                    home.addPrice(basePrice * 0.02);
+                } else {
+                    home.addPrice(basePrice * -0.05);
+                }
+                if (((School) place).hasIB()) {
+                    home.addPrice(basePrice * 0.01);
+                }
+                if (((School) place).hasGifted()) {
+                    home.addPrice(basePrice * 0.01);
+                }
+                if (((School) place).hasFrench()) {
+                    home.addPrice(basePrice * 0.01);
+                }
             } else if (place instanceof Mall) {
                 home.addMallDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.03 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((Mall) place).getNumStores() > 30) {
+                    home.addPrice(basePrice * 0.003);
+                }
+                if (((Mall) place).hasMovieTheater()) {
+                    home.addPrice(basePrice * 0.003);
+                }
+                if (((Mall) place).hasFoodCourt()) {
+                    home.addPrice(basePrice * 0.003);
+                }
             } else if (place instanceof GroceryStore) {
                 home.addGroceryStoreDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.05 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((GroceryStore) place).getAffordabilityRating() > 5) {
+                    home.addPrice(basePrice * 0.001 * ((GroceryStore) place).getAffordabilityRating());
+                } else {
+                    home.addPrice(basePrice * -0.01 * ((GroceryStore) place).getAffordabilityRating());
+                }
+                if (((GroceryStore) place).hasPharmacy()) {
+                    home.addPrice(basePrice * 0.005);
+                }
+                if (((GroceryStore) place).hasBakery()) {
+                    home.addPrice(basePrice * 0.005);
+                }
             } else if (place instanceof Park) {
                 home.addParkDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.03 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((Park) place).getSurfaceArea() >= 215278) { // 2 hectares
+                    home.addPrice(basePrice * 0.005);
+                }
+                if (((Park) place).getCleanRating() > 6) {
+                    home.addPrice(basePrice * 0.001 * ((Park) place).getCleanRating());
+                } else {
+                    home.addPrice(basePrice * -0.005 * ((Park) place).getCleanRating());
+                }
+                if (((Park) place).hasBaseballDiamond()) {
+                    home.addPrice(basePrice * 0.005);
+                }
+                if (((Park) place).hasSoccerField()) {
+                    home.addPrice(basePrice * 0.005);
+                }
+                if (((Park) place).hasSplashPad()) {
+                    home.addPrice(basePrice * 0.005);
+                }
             } else if (place instanceof BusStop) {
                 home.addBusStopDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.05 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((BusStop) place).getBusyRating() < 5) {
+                    home.addPrice(basePrice * 0.001 * ((BusStop) place).getBusyRating());
+                } else {
+                    home.addPrice(basePrice * -0.01 * ((BusStop) place).getBusyRating());
+                }
             } else if (place instanceof SubwayStation) {
                 home.addSubwayStationDistance(distanceMap.get(place));
+                home.addPrice(basePrice * 0.05 * ((100 - distanceMap.get(place)) / 100.0));
+                if (((SubwayStation) place).getBusyRating() < 5) {
+                    home.addPrice(basePrice * 0.001 * ((SubwayStation) place).getBusyRating());
+                } else {
+                    home.addPrice(basePrice * -0.01 * ((SubwayStation) place).getBusyRating());
+                }
+            } else if (place instanceof EmergencyServiceStation) {
+                home.addEmergencyServiceStationDistance(distanceMap.get(place));
+            } else if (place instanceof GarbageDisposal) {
+                home.addPrice(basePrice * -0.01 * ((GarbageDisposal) place).getPollution());
             }
 
             // Print the shortest distance from the home to the current place
             if (!(place instanceof ResidentialBuilding)) {
-                System.out.println("Shortest distance from " + home.getAddress() + " to " + place.getName() + " at " + place.getAddress() + ": " + distanceMap.get(place) + " km");
+//                System.out.println("Shortest distance from " + home.getAddress() + " to " + place.getName() + " at " + place.getAddress() + ": " + distanceMap.get(place) + " km");
+                //System.out.println("Nearest School: " + home.get);
             }
+
+//            System.out.println("************* PRICE: " + home.getPrice() + " *************");
+
         }
+        
+        home.setBonus(basePrice < home.getPrice() ? true : false);
+        System.out.println("Valuation: $" + home.getPrice());
+    }
+    
+    //Method to update all the distances
+    public static void updateDistance(ResidentialBuilding rb) {
+        if(rb instanceof House) {
+            ((House) rb).setPrice(House.calculateHousePrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms(), rb.getParkingSpaces(), ((House) rb).getBackyardSize()));
+        } 
+        else if(rb instanceof Townhouse) {
+            ((Townhouse) rb).setPrice(Townhouse.calculateHousePrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms(), rb.getParkingSpaces(), ((House) rb).getBackyardSize())); 
+        }
+        else {
+            ((Apartment) rb).setPrice(Apartment.calculateApartmentPrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms()));
+        }
+        rb.clearLists();
+        calculateAllDistancesForAHome(rb);
+        rb.sortDistances();
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backDrop;
     private javax.swing.JLabel backDropModes;
+    private javax.swing.JLabel backdropBuy;
     private javax.swing.JLabel backdropCBuild;
     private javax.swing.JLabel backdropCDes;
     private javax.swing.JLabel backdropGBuild;
     private javax.swing.JLabel backdropGDes;
+    private javax.swing.JLabel backdropNearest;
     private javax.swing.JButton btnBegin;
     private javax.swing.JButton btnBuyer;
     private javax.swing.JButton btnCBuild;
@@ -1073,6 +1546,8 @@ public class SimEstate extends javax.swing.JFrame {
     private javax.swing.JButton btnGBuild;
     private javax.swing.JButton btnGDes;
     private javax.swing.JButton btnGov;
+    private javax.swing.JButton btnProximity;
+    private javax.swing.JList<String> buyList;
     private javax.swing.JTextArea cBuildFeedback;
     private javax.swing.JTextArea cDesFeedback;
     private javax.swing.JCheckBox chkCOne;
@@ -1095,10 +1570,12 @@ public class SimEstate extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbGBuildType;
     private javax.swing.JComboBox<String> cmbGDes;
     private javax.swing.JComboBox<String> cmbGDesType;
+    private javax.swing.JDialog dBuyer;
     private javax.swing.JDialog dContractBuild;
     private javax.swing.JDialog dContractDes;
     private javax.swing.JDialog dGovBuild;
     private javax.swing.JDialog dGovDes;
+    private javax.swing.JDialog dProximity;
     private javax.swing.JDialog dSimModes;
     private javax.swing.JTextArea gBuildFeedback;
     private javax.swing.JTextArea gDesFeedback;
@@ -1108,16 +1585,41 @@ public class SimEstate extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblArea;
+    private javax.swing.JLabel lblBS;
+    private javax.swing.JLabel lblBathrooms;
+    private javax.swing.JLabel lblBedrooms;
+    private javax.swing.JLabel lblBonus;
+    private javax.swing.JLabel lblCC;
     private javax.swing.JLabel lblConfig;
+    private javax.swing.JLabel lblES;
     private javax.swing.JLabel lblFieldFive;
     private javax.swing.JLabel lblFieldFour;
     private javax.swing.JLabel lblFieldOne;
     private javax.swing.JLabel lblFieldThree;
     private javax.swing.JLabel lblFieldTwo;
+    private javax.swing.JLabel lblFloors;
+    private javax.swing.JLabel lblGS;
+    private javax.swing.JLabel lblGym;
+    private javax.swing.JLabel lblHP;
+    private javax.swing.JLabel lblML;
+    private javax.swing.JLabel lblPK;
+    private javax.swing.JLabel lblParking;
+    private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblS1;
+    private javax.swing.JLabel lblS2;
+    private javax.swing.JLabel lblS3;
+    private javax.swing.JLabel lblSW;
+    private javax.swing.JLabel lblUnits;
+    private javax.swing.JLabel lblYard;
     private javax.swing.JTextField txtCAddress;
     private javax.swing.JTextField txtCArea;
     private javax.swing.JTextField txtCDistance;

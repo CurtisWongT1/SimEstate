@@ -1,25 +1,25 @@
 package com.mycompany.simestate;
 
 public class School extends Place {
-    private int ranking;
+    private int ranking; 
     private boolean isPrivate;
     private double tuition;
     private String schoolGrade;
-    private boolean isIB;
-    private boolean isGifted;
-    private boolean isFrench;
+    private boolean hasIB;
+    private boolean hasGifted;
+    private boolean hasFrench;
 
     public School(String address, String id, String name, int ranking, boolean isPrivate,
-                  double tuition, String schoolGrade, boolean isIB, boolean isGifted, boolean isFrench) {
+                  double tuition, String schoolGrade, boolean hasIB, boolean hasGifted, boolean hasFrench) {
         super(address, id, name);
         
         this.ranking = ranking;
         this.isPrivate = isPrivate;
         this.tuition = tuition;
         this.schoolGrade = schoolGrade;
-        this.isIB = isIB;
-        this.isGifted = isGifted;
-        this.isFrench = isFrench;
+        this.hasIB = hasIB;
+        this.hasGifted = hasGifted;
+        this.hasFrench = hasFrench;
     }
 
     public int getRanking() {
@@ -54,29 +54,29 @@ public class School extends Place {
         this.schoolGrade = schoolGrade;
     }
     
-    public boolean getIsIB() {
-        return isIB;
+    public boolean hasIB() {
+        return hasIB;
     }
 
-    public void setHasGym(boolean isIB) {
-        this.isIB = isIB;
+    public void setHasIB(boolean hasIB) {
+        this.hasIB = hasIB;
     }
 
-    public boolean getIsGifted() {
-        return isGifted;
+    public boolean hasGifted() {
+        return hasGifted;
     }
 
-    public void setHasPool(boolean isGifted) {
-        this.isGifted = isGifted;
+    public void setHasGifted(boolean hasGifted) {
+        this.hasGifted = hasGifted;
     }
 
-    public boolean getIsFrench() {
-        return isFrench;
+    public boolean hasFrench() {
+        return hasFrench;
     }
 
-    public void setIsFrench(boolean isFrench) {
-        this.isFrench = isFrench;
+    public void setHasFrench(boolean hasFrench) {
+        this.hasFrench = hasFrench;
     }
+
     
 }
-

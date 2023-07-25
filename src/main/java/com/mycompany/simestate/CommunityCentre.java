@@ -13,7 +13,7 @@ public class CommunityCentre extends InstitutionalBuilding {
         this.hasRink = hasRink;
       }
 
-    public boolean isHasPool() {
+    public boolean hasPool() {
         return hasPool;
     }
 
@@ -21,7 +21,7 @@ public class CommunityCentre extends InstitutionalBuilding {
         this.hasPool = hasPool;
     }
     
-    public boolean isHasGym() {
+    public boolean hasGym() {
         return hasGym;
     }
 
@@ -29,7 +29,7 @@ public class CommunityCentre extends InstitutionalBuilding {
         this.hasGym = hasGym;
     }
 
-    public boolean isHasRink() {
+    public boolean hasRink() {
         return hasRink;
     }
 

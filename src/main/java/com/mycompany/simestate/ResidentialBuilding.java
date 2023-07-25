@@ -3,6 +3,46 @@ package com.mycompany.simestate;
 import java.util.*;
 
 public abstract class ResidentialBuilding extends Place {
+    // Properties of the ResidentialBuilding class
+    private int numUnits;
+    private int numBathrooms;
+    private int numBedrooms;
+    protected double price; 
+    private int parkingSpaces;
+    private int numFloors;
+    private double surfaceArea;
+    private boolean bonus;
+
+    // ArrayLists to store distances to various places
+    private ArrayList<Double> hospitals = new ArrayList<>();
+    private ArrayList<Double> communityCentres = new ArrayList<>();
+    private ArrayList<Double> emergencyServiceStations = new ArrayList<>();
+    private ArrayList<Double> elementary = new ArrayList<>();
+    private ArrayList<Double> secondary = new ArrayList<>();
+    private ArrayList<Double> postSecondary = new ArrayList<>();
+    private ArrayList<Double> malls = new ArrayList<>();
+    private ArrayList<Double> groceryStores = new ArrayList<>();
+    private ArrayList<Double> parks = new ArrayList<>();
+    private ArrayList<Double> busStops = new ArrayList<>();
+    private ArrayList<Double> subwayStations = new ArrayList<>();
+    
+    
+    // Constructor for ResidentialBuilding
+    public ResidentialBuilding(String address, String id, int numUnits, int numBathrooms, int numBedrooms, double price, int parkingSpaces, int numFloors, double surfaceArea) {
+        // Call the constructor of the superclass (Place)
+        super(address, id, "");
+        
+        // Initialize the properties of the ResidentialBuilding
+        this.numUnits = numUnits;
+        this.numBathrooms = numBathrooms;
+        this.numBedrooms = numBedrooms;
+        this.price = price;
+        this.parkingSpaces = parkingSpaces;
+        this.numFloors = numFloors;
+        this.surfaceArea = surfaceArea;
+        this.bonus = true; // default true unless set afterwards
+    }
+    
     // Quick sort algorithm for sorting the ArrayList<Double> in ascending order
     public void quickSort(ArrayList<Double> arr, int low, int high) {
         if (low < high) {
@@ -40,51 +80,48 @@ public abstract class ResidentialBuilding extends Place {
         quickSort(hospitals, 0, hospitals.size() - 1);
         quickSort(communityCentres, 0, communityCentres.size() - 1);
         quickSort(emergencyServiceStations, 0, emergencyServiceStations.size() - 1);
-        quickSort(schools, 0, schools.size() - 1);
+        quickSort(elementary, 0, elementary.size() - 1);
+        quickSort(secondary, 0, secondary.size() - 1);
+        quickSort(postSecondary, 0, postSecondary.size() - 1);
         quickSort(malls, 0, malls.size() - 1);
         quickSort(groceryStores, 0, groceryStores.size() - 1);
         quickSort(parks, 0, parks.size() - 1);
         quickSort(busStops, 0, busStops.size() - 1);
         quickSort(subwayStations, 0, subwayStations.size() - 1);
     }
-
-    // Properties of the ResidentialBuilding class
-    private int numUnits;
-    private int numBathrooms;
-    private int numBedrooms;
-    private double price; 
-    private int parkingSpaces;
-    private int numFloors;
-    private double surfaceArea;
-
-    // ArrayLists to store distances to various places
-    private ArrayList<Double> hospitals = new ArrayList<>();
-    private ArrayList<Double> communityCentres = new ArrayList<>();
-    private ArrayList<Double> emergencyServiceStations = new ArrayList<>();
-    private ArrayList<Double> schools = new ArrayList<>();
-    private ArrayList<Double> malls = new ArrayList<>();
-    private ArrayList<Double> groceryStores = new ArrayList<>();
-    private ArrayList<Double> parks = new ArrayList<>();
-    private ArrayList<Double> busStops = new ArrayList<>();
-    private ArrayList<Double> subwayStations = new ArrayList<>();
-
-    // Constructor for ResidentialBuilding
-    public ResidentialBuilding(String address, String id, int numUnits, int numBathrooms, int numBedrooms, double price, int parkingSpaces, int numFloors, double surfaceArea) {
-        // Call the constructor of the superclass (Place)
-        super(address, id, "");
-        // Initialize the properties of the ResidentialBuilding
-        this.numUnits = numUnits;
-        this.numBathrooms = numBathrooms;
-        this.numBedrooms = numBedrooms;
-        this.price = price;
-        this.parkingSpaces = parkingSpaces;
-        this.numFloors = numFloors;
-        this.surfaceArea = surfaceArea;
-      
-        // Calculate distances from this ResidentialBuilding to all other places
-        //Main.calculateAllDistancesForAHouse(this);
-        // Sort distances to various places in ascending order
-        //this.sortDistances();
+    
+    //Method to print out the nearest locations
+    public void displayNearestDistances(){
+      System.out.println("The nearest hospital is " + hospitals.get(0) + " km away.");
+      System.out.println("The nearest community centre is " + communityCentres.get(0) + " km away.");
+      System.out.println("The nearest emergency service station is " + emergencyServiceStations.get(0) + " km away.");
+      System.out.println("The nearest elementary schools is " + elementary.get(0) + " km away.");
+      System.out.println("The nearest secondary schools is " + secondary.get(0) + " km away.");
+      System.out.println("The nearest post-secondary schools is " + postSecondary.get(0) + " km away.");
+      System.out.println("The nearest mall is " + malls.get(0) + " km away.");
+      System.out.println("The nearest grocery store is " + groceryStores.get(0) + " km away.");
+      System.out.println("The nearest park is " + parks.get(0) + " km away.");
+      System.out.println("The nearest bus stops is " + busStops.get(0) + " km away.");
+      System.out.println("The nearest subway station is " + subwayStations.get(0) + " km away.");
+    }
+    
+    public String[] getNearestDistances(){
+        return new String[] {String.valueOf(hospitals.get(0)), String.valueOf(communityCentres.get(0)), String.valueOf(emergencyServiceStations.get(0)), String.valueOf(elementary.get(0)), String.valueOf(secondary.get(0)), 
+            String.valueOf(postSecondary.get(0)), String.valueOf(malls.get(0)), String.valueOf(groceryStores.get(0)), String.valueOf(parks.get(0)), String.valueOf(busStops.get(0)), String.valueOf(subwayStations.get(0))};
+    }
+    
+    public void clearLists() {
+        hospitals.clear();
+        emergencyServiceStations.clear();
+        elementary.clear();
+        secondary.clear();
+        postSecondary.clear();
+        malls.clear();
+        groceryStores.clear();
+        parks.clear();
+        busStops.clear();
+        subwayStations.clear();
+        
     }
 
     // Getters and setters for the properties of ResidentialBuilding
@@ -121,6 +158,10 @@ public abstract class ResidentialBuilding extends Place {
         this.price = price;
     }
 
+    public void addPrice(double add) {
+        this.price += add;
+    }
+	
     public int getParkingSpaces() {
         return parkingSpaces;
     }
@@ -137,18 +178,27 @@ public abstract class ResidentialBuilding extends Place {
         this.numFloors = numFloors;
     }
 
-    public int getSurfaceArea() {
-        return numFloors;
+    public double getSurfaceArea() {
+        return surfaceArea;
     }
 
     public void setSurfaceArea(double surfaceArea) {
         this.surfaceArea = surfaceArea;
     }
 
+    public boolean isBonus() {
+        return bonus;
+    }
+
+    public void setBonus(boolean bonus) {
+        this.bonus = bonus;
+    }
+
     // Adding distances to the respective ArrayLists
 
     // Setter method to add a new double value to the hospitals ArrayList
     public void addHospitalDistance(double distance) {
+        
         hospitals.add(distance);
     }
     
@@ -163,8 +213,18 @@ public abstract class ResidentialBuilding extends Place {
     }
     
     // Setter method to add a new double value to the schools ArrayList
-    public void addSchoolDistance(double distance) {
-        schools.add(distance);
+    public void addElementaryDistance(double distance) {
+        elementary.add(distance);
+    }
+
+    // Setter method to add a new double value to the schools ArrayList
+    public void addSecondaryDistance(double distance) {
+        secondary.add(distance);
+    }
+  
+    // Setter method to add a new double value to the schools ArrayList
+    public void addPostSecondaryDistance(double distance) {
+        postSecondary.add(distance);
     }
     
     // Setter method to add a new double value to the malls ArrayList

@@ -34,7 +34,7 @@ public class Park extends Place {
         this.cleanRating = cleanRating;
     }
 
-    public boolean isHasBaseballDiamond() {
+    public boolean hasBaseballDiamond() {
         return hasBaseballDiamond;
     }
 
@@ -42,7 +42,7 @@ public class Park extends Place {
         this.hasBaseballDiamond = hasBaseballDiamond;
     }
 
-    public boolean isHasSoccerField() {
+    public boolean hasSoccerField() {
         return hasSoccerField;
     }
 
@@ -50,7 +50,7 @@ public class Park extends Place {
         this.hasSoccerField = hasSoccerField;
     }
 
-    public boolean isHasSplashPad() {
+    public boolean hasSplashPad() {
         return hasSplashPad;
     }
 
@@ -59,3 +59,4 @@ public class Park extends Place {
     }
 
 }
+
