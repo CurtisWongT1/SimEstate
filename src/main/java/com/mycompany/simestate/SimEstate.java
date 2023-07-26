@@ -16,40 +16,39 @@
  * @version     1.0.7 
  * @see         N/A
  */
-
 package com.mycompany.simestate;
+
 import java.awt.Component;
 import java.awt.Dialog;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
-
 /**
  *
  * @author user
  */
 public class SimEstate extends javax.swing.JFrame {
-    
+
     private Map<Place, List<Road>> adjacencyList; // Create an ArrayList to store non-residential buildings (both houses and other
     public static ArrayList<ResidentialBuilding> residentialBuildings = new ArrayList<>(); // Create an ArrayList to store residential buildings
     public static ArrayList<Place> places = new ArrayList<>(); // Create an ArrayList to store residential buildings
     public static ArrayList<Road> roads = new ArrayList<>(); // Create an ArrayList to store all roads
-    
+
     // Variables to handle contractor information/input
     String contractAddress;
     int contractDistance;
     Place contractStart;
-    
+
     // Set components to be initially invisible before input based activation
     String govAddress;
     int govDistance;
     Place govStart;
     String govName;
-    
+
     public SimEstate() {
         initComponents();
-        
+
         // Set components to be initially invisible before input based activation
         chkCOne.setVisible(false);
         chkCTwo.setVisible(false);
@@ -58,7 +57,7 @@ public class SimEstate extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         dSimModes = new javax.swing.JDialog();
@@ -763,58 +762,59 @@ public class SimEstate extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
     // Action performed when the "Begin" button is clicked
-    private void btnBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginActionPerformed
+    private void btnBeginActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // Calls the screenRoute method with the parameters dSimModes and jPanel1
         screenRoute(dSimModes, jPanel1);
-    }//GEN-LAST:event_btnBeginActionPerformed
-    
-    // Action performed when the "Contract Destination" button is clicked
-    private void btnCDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCDesActionPerformed
-        // Checks if the address contains a valid short form address suffix (St, Ave, Rd, Ln, Blvd, Dr)
-        if((txtCAddress.getText().toLowerCase()).contains("st") || (txtCAddress.getText().toLowerCase()).contains("ave") || (txtCAddress.getText().toLowerCase()).contains("rd") || (txtCAddress.getText().toLowerCase()).contains("ln") || (txtCAddress.getText().toLowerCase()).contains("blvd") || (txtCAddress.getText().toLowerCase()).contains("dr")) {
-            if(addressSearch(txtCAddress.getText(), residentialBuildings) != null && addressSearch(String.valueOf(txtCAddress.getText()), places) != null) { // Checks if the address is already taken in both residentialBuildings and places lists
-                cDesFeedback.setText("Address has already been taken");
-                return;
-            }
-            contractAddress = txtCAddress.getText(); // set the address of the building/contract to be built
-            
-            try {
-                Integer.valueOf(txtCDistance.getText());
-                if(Integer.valueOf(txtCDistance.getText()) > 0) {
-                    contractDistance = Integer.valueOf(txtCDistance.getText());
-                    contractStart = String.valueOf(cmbCDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbCDes.getSelectedItem()), residentialBuildings): nameSearch(String.valueOf(cmbCDes.getSelectedItem()), places); // confirm the address or name of the reference location
-                    if(contractStart != null) { // if address or name exists, proceed
-                        screenRoute(dContractBuild, jPanel2); 
-                    }
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(e);
-                cDesFeedback.setText("Distance must be a Postiive Number");
-            }
+    }                                        
 
-        } else {
-            cDesFeedback.setText("Make sure to include a proper short form address suffix (St, Ave, Rd, Ln, Blvd, Dr)");
-        }   
-    }//GEN-LAST:event_btnCDesActionPerformed
-    
+    // Action performed when the "Contract Destination" button is clicked
+private void btnCDesActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        try {
+            Integer.valueOf(txtCDistance.getText());
+            if (Integer.valueOf(txtCDistance.getText()) > 0) {
+                // Checks if the address contains a valid short form address suffix (St, Ave, Rd, Ln, Blvd, Dr)
+                if ((txtCAddress.getText().toLowerCase()).contains("st") || (txtCAddress.getText().toLowerCase()).contains("ave") || (txtCAddress.getText().toLowerCase()).contains("rd") || (txtCAddress.getText().toLowerCase()).contains("ln") || (txtCAddress.getText().toLowerCase()).contains("blvd") || (txtCAddress.getText().toLowerCase()).contains("dr")) {
+                    if (addressSearch(txtCAddress.getText(), residentialBuildings) != null && addressSearch(String.valueOf(txtCAddress.getText()), places) != null) { // Checks if the address is already taken in both residentialBuildings and places lists
+                        cDesFeedback.setText("Address has already been taken");
+                        return;
+                    }
+                    contractAddress = txtCAddress.getText(); // set the address of the building/contract to be built
+                } else {
+                    cDesFeedback.setText("Make sure to include a proper short form address suffix (St, Ave, Rd, Ln, Blvd, Dr)");
+                }
+                contractDistance = Integer.valueOf(txtCDistance.getText());
+                contractStart = String.valueOf(cmbCDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbCDes.getSelectedItem()), residentialBuildings) : nameSearch(String.valueOf(cmbCDes.getSelectedItem()), places); // confirm the address or name of the reference location
+                if (contractStart != null) { // if address or name exists, proceed
+                    screenRoute(dContractBuild, jPanel2);
+                }
+            } else {
+                cDesFeedback.setText("Distance must be a Positive Integer");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+            cDesFeedback.setText("Distance must be a Positive Integer");
+        }
+
+    }                                          
+
     // When Reference destination type is changed
-    private void cmbCDesTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCDesTypeActionPerformed
+    private void cmbCDesTypeActionPerformed(java.awt.event.ActionEvent evt) {                                            
         cmbCDes.setModel(desModel(cmbCDesType)); // when the type is switched, change the options (aka model) of the dropdown to that type
-    }//GEN-LAST:event_cmbCDesTypeActionPerformed
+    }                                           
 
     // when govern button is pressed (enter government mode)
-    private void btnGovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGovActionPerformed
+    private void btnGovActionPerformed(java.awt.event.ActionEvent evt) {                                       
         dGovDes.setSize(735, 445);
         dGovDes.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         cmbGDes.setModel(desModel(cmbGDesType)); // set the inital model for the dropdown
         dGovDes.setVisible(true);
-    }//GEN-LAST:event_btnGovActionPerformed
+    }                                      
 
     // when buyer button is pressed (enter buyer mode)
-    private void btnBuyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyerActionPerformed
+    private void btnBuyerActionPerformed(java.awt.event.ActionEvent evt) {                                         
         DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i < residentialBuildings.size(); i++) {
             listModel.addElement(residentialBuildings.get(i).getAddress()); // change residentialBuilsings list to list model to display in the JList
@@ -822,35 +822,34 @@ public class SimEstate extends javax.swing.JFrame {
 
         buyList.setModel(listModel); // set model created above
         buyList.setSelectedIndex(-1); // have no default selection in the JList
-        screenRoute(dBuyer, jPanel4);    
-    }//GEN-LAST:event_btnBuyerActionPerformed
+        screenRoute(dBuyer, jPanel4);
+    }                                        
 
     // when contractor button is pressed (enter contractor mode)
-    private void btnContractorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractorActionPerformed
+    private void btnContractorActionPerformed(java.awt.event.ActionEvent evt) {                                              
         dContractDes.setSize(735, 445);
         dContractDes.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         cmbCDes.setModel(desModel(cmbCDesType)); // set initial model for the dropdown
         dContractDes.setVisible(true);
-        
-    }//GEN-LAST:event_btnContractorActionPerformed
+
+    }                                             
 
     // When build type combobox is changed
-    private void cmbCBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCBuildTypeActionPerformed
+    private void cmbCBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {                                              
         String[] floorModel = {"1", "2", "3", "4", "5", "6"}; // create model for floor options
         cmbCFloors.setModel(new DefaultComboBoxModel<>(floorModel));
         chkCOne.setVisible(false);
         chkCTwo.setVisible(false);
         chkCThree.setVisible(false);
-      
+
         // Checks the selected building type and adjusts the UI accordingly
-        if(cmbCBuildType.getSelectedItem().equals("House")) {
+        if (cmbCBuildType.getSelectedItem().equals("House")) {
             lblConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/houseConfig.png")));
             cmbCParking.setVisible(true);
-        } 
-        else if (cmbCBuildType.getSelectedItem().equals("Townhouse")) {
+        } else if (cmbCBuildType.getSelectedItem().equals("Townhouse")) {
             lblConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/houseConfig.png")));
             cmbCParking.setVisible(true);
-            
+
         } else {
             // Array of unique floor options for apartments 
             String[] tempModel = {"10", "20", "30", "50"};
@@ -863,14 +862,13 @@ public class SimEstate extends javax.swing.JFrame {
             chkCTwo.setText("Gym");
             chkCThree.setVisible(true);
             chkCThree.setText("Tennis Court");
-            
-            
-            lblConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/apartmentConfig.png")));          
+
+            lblConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/apartmentConfig.png")));
         }
-    }//GEN-LAST:event_cmbCBuildTypeActionPerformed
+    }                                             
 
     // Action performed when the "Confirm" button is clicked on the contract build screen
-    private void btnCBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCBuildActionPerformed
+    private void btnCBuildActionPerformed(java.awt.event.ActionEvent evt) {                                          
         try {
             double yardArea = Double.valueOf(String.valueOf(txtCYardArea.getText()));
             int numBathrooms = comboExtract(cmbCBathrooms);
@@ -878,16 +876,16 @@ public class SimEstate extends javax.swing.JFrame {
             int parkingSpaces = comboExtract(cmbCParking);
             int numFloors = comboExtract(cmbCFloors);
             double area = Double.valueOf(String.valueOf(txtCArea.getText()));
-            
-            if(yardArea <= 0 || area <= 0) {
+
+            if (yardArea <= 0 || area <= 0) {
                 cBuildFeedback.setText("Area must exceed 0");
                 return;
-            } 
-            
+            }
+
             // Creating different types of buildings based on the selected build type
-            if(cmbCBuildType.getSelectedItem().equals("House")) {
+            if (cmbCBuildType.getSelectedItem().equals("House")) {
                 House house = new House(contractAddress, "HH-" + nextID("HH", residentialBuildings), yardArea, numBathrooms, numBedrooms, 0, parkingSpaces, numFloors, area);
-                
+
                 house.setPrice(House.calculateHousePrice(yardArea, numBathrooms, numBedrooms, parkingSpaces, area));
                 residentialBuildings.add(house); // Adding the new House object to the residentialBuildings and places lists
                 places.add(house);
@@ -901,16 +899,15 @@ public class SimEstate extends javax.swing.JFrame {
                 calculateAllDistancesForAHome(house);
                 house.sortDistances();
                 house.setBonus(initialPrice < house.getPrice());
-            } 
-            else if (cmbCBuildType.getSelectedItem().equals("Townhouse")) {         
+            } else if (cmbCBuildType.getSelectedItem().equals("Townhouse")) {
                 Townhouse townHouse = new Townhouse(contractAddress, "TH-" + nextID("TH", residentialBuildings), numBathrooms, numBedrooms, 0, parkingSpaces, numFloors, area, yardArea);
-                
+
                 townHouse.setPrice(Townhouse.calculateHousePrice(yardArea, numBathrooms, numBedrooms, parkingSpaces, yardArea));
                 residentialBuildings.add(townHouse);
                 places.add(townHouse);
                 roads.add(new Road(contractStart, townHouse, contractDistance));
                 roads.add(new Road(townHouse, contractStart, contractDistance));
-                
+
                 double initialPrice = townHouse.getPrice();
                 calculateAllDistancesForAHome(townHouse);
                 townHouse.sortDistances();
@@ -920,106 +917,132 @@ public class SimEstate extends javax.swing.JFrame {
                 int numUnits = Integer.valueOf(txtCYardArea.getText());
                 Apartment apartment = new Apartment(contractAddress, "AB-" + nextID("AB", residentialBuildings), numUnits, numBathrooms, numBedrooms, 0, parkingSpaces, numFloors, area, chkCOne.isSelected(), chkCTwo.isSelected(), chkCThree.isSelected());
                 apartment.setPrice(Apartment.calculateApartmentPrice(area, numBathrooms, numBedrooms));
-                
+
                 residentialBuildings.add(apartment);
                 places.add(apartment);
                 roads.add(new Road(contractStart, apartment, contractDistance));
                 roads.add(new Road(apartment, contractStart, contractDistance));
-                
+
                 double initialPrice = apartment.getPrice();
                 calculateAllDistancesForAHome(apartment);
                 apartment.sortDistances();
                 apartment.setBonus(initialPrice < apartment.getPrice() ? true : false);
             }
-            
+
             // Printing the ID of the last added residential building and road added
-            System.out.println(residentialBuildings.get(residentialBuildings.size()-1).getId() + " " + roads.get(roads.size()-2).toString());
-            
+            System.out.println(residentialBuildings.get(residentialBuildings.size() - 1).getId() + " " + roads.get(roads.size() - 2).toString());
+
             dContractBuild.dispose(); // Close the Contractor Screens to return to the menu after successful build
             dContractDes.dispose();
-            
+
         } catch (NumberFormatException e) {
             System.out.println(e);
             cBuildFeedback.setText("Area Input malformed, please retry");
         }
-        
-    }//GEN-LAST:event_btnCBuildActionPerformed
+
+    }                                         
 
     // when reference location type is changed in the government destination screen
-    private void cmbGDesTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGDesTypeActionPerformed
+    private void cmbGDesTypeActionPerformed(java.awt.event.ActionEvent evt) {                                            
         cmbGDes.setModel(desModel(cmbGDesType));
-    }//GEN-LAST:event_cmbGDesTypeActionPerformed
-    
-    // When confirm is hit in the government mode destination screen
-    private void btnGDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGDesActionPerformed
-        // Check if address has the correct format of having a certain street suffix
-        if((txtGAddress.getText().toLowerCase()).contains("st") || (txtGAddress.getText().toLowerCase()).contains("ave") || (txtGAddress.getText().toLowerCase()).contains("rd") || (txtGAddress.getText().toLowerCase()).contains("ln") || (txtGAddress.getText().toLowerCase()).contains("blvd") || (txtGAddress.getText().toLowerCase()).contains("dr")) {
-            govAddress = txtGAddress.getText();
-            
-            try {
-                Integer.valueOf(txtGDistance.getText());
-                if(Integer.valueOf(txtGDistance.getText()) > 0) {
-                    govDistance = Integer.valueOf(txtGDistance.getText());
-                    govStart = String.valueOf(cmbGDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbGDes.getSelectedItem()), residentialBuildings): nameSearch(String.valueOf(cmbGDes.getSelectedItem()), places);
-                    
-                    // check if name and address are valid and not taken
-                    if(!txtGName.getText().isEmpty() && govStart != null && nameSearch(txtGName.getText(), places) == null && addressSearch(String.valueOf(txtGAddress.getText()), residentialBuildings) == null && addressSearch(String.valueOf(txtGAddress.getText()), places) == null) {
-                        govName = txtGName.getText();
-                        txtFieldThree.setText(""); // clear textfield to be empty when returning to screen later
-                        screenRoute(dGovBuild, jPanel5);
-                    } else {
-                        gDesFeedback.setText("Invalid Name or Address, already taken");
-                    }
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(e);
-                gDesFeedback.setText("Distance must be a Postiive Number");
-            } 
+    }                                           
 
-        } else {
-            gDesFeedback.setText("Make sure to include a proper short form address suffix (St, Ave, Rd, Ln, Blvd, Dr)");
-        }
-    }//GEN-LAST:event_btnGDesActionPerformed
-    
-    // When confirm hit in government build screen
-    private void btnGBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGBuildActionPerformed
-        String type = String.valueOf(cmbGBuildType.getSelectedItem()); // determines selected building/place
-        Place landmark;
-        
+    // When confirm is hit in the government mode destination screen
+    private void btnGDesActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {
-            if(lblFieldThree.getText() != "" && txtFieldThree.getText().isEmpty()) { // if a textfield is active & required, check that it is filled in
-                gBuildFeedback.setText("Fill out all Fields");
+            Integer.valueOf(txtGDistance.getText());
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+            gDesFeedback.setText("Error. Please enter a positive integer for the distance.");
+        }
+        if (Integer.valueOf(txtGDistance.getText()) > 0) {
+            govDistance = Integer.valueOf(txtGDistance.getText());
+            govStart = String.valueOf(cmbGDesType.getSelectedItem()).equals("Residential") ? addressSearch(String.valueOf(cmbGDes.getSelectedItem()), residentialBuildings) : nameSearch(String.valueOf(cmbGDes.getSelectedItem()), places);
+
+            // Check if the name field is empty
+            if (txtGName.getText().isEmpty()) {
+                gDesFeedback.setText("Please enter a valid name.");
+                return;
+            }
+
+            // Check if the address field is empty
+            if (txtGAddress.getText().isEmpty()) {
+                gDesFeedback.setText("Please enter a valid address.");
                 return;
             }
             
+            // Check if address has the correct format of having a certain street suffix
+            if ((txtGAddress.getText().toLowerCase()).contains("st") || (txtGAddress.getText().toLowerCase()).contains("ave") || (txtGAddress.getText().toLowerCase()).contains("rd") || (txtGAddress.getText().toLowerCase()).contains("ln") || (txtGAddress.getText().toLowerCase()).contains("blvd") || (txtGAddress.getText().toLowerCase()).contains("dr")) {
+                govAddress = txtGAddress.getText();
+            } else {
+                gDesFeedback.setText("Make sure to include a proper short form address suffix (St, Ave, Rd, Ln, Blvd, Dr)");
+                return;
+            }
+
+            // Check if 'govStart' is null
+            if (govStart == null) {
+                gDesFeedback.setText("The 'govStart' variable is not initialized.");
+                return;
+            }
+            // Check if the name is already taken
+            if (nameSearch(txtGName.getText(), places) != null) {
+                gDesFeedback.setText("The name is already taken.");
+                return;
+            }
+            // Check if the address is already taken in either 'residentialBuildings' or 'places' list
+            if (addressSearch(String.valueOf(txtGAddress.getText()), residentialBuildings) != null || addressSearch(String.valueOf(txtGAddress.getText()), places) != null) {
+                gDesFeedback.setText("The address is already taken.");
+                return;
+            }
+            // If all checks pass, proceed with the actions
+            govName = txtGName.getText();
+            txtFieldThree.setText(""); // clear textfield to be empty when returning to screen later
+            screenRoute(dGovBuild, jPanel5);
+        } else {
+            gDesFeedback.setText("Error. Please enter a positive integer for the distance.");
+            return;
+        }
+    }                                       
+
+    // When confirm hit in government build screen
+    private void btnGBuildActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        String type = String.valueOf(cmbGBuildType.getSelectedItem()); // determines selected building/place
+        Place landmark;
+
+        try {
+            if (lblFieldThree.getText() != "" && txtFieldThree.getText().isEmpty()) { // if a textfield is active & required, check that it is filled in
+                gBuildFeedback.setText("Fill out all Fields");
+                return;
+            }
+
             // turnary operator to assign and create a new place/landmark object based on the user input
-            landmark = type.equals("School") ? new School(govAddress, "SS-" + nextID("SS", places), govName, Integer.valueOf((String.valueOf(cmbFieldOne.getSelectedItem())).substring(1)), Boolean.parseBoolean(String.valueOf(cmbFieldTwo.getSelectedItem())), Integer.valueOf(String.valueOf(txtFieldThree.getText())), String.valueOf(cmbFieldFour.getSelectedItem()), chkGOne.isSelected(), chkGTwo.isSelected(), chkGThree.isSelected()) 
+            landmark = type.equals("School") ? new School(govAddress, "SS-" + nextID("SS", places), govName, Integer.valueOf((String.valueOf(cmbFieldOne.getSelectedItem())).substring(1)), Boolean.parseBoolean(String.valueOf(cmbFieldTwo.getSelectedItem())), Integer.valueOf(String.valueOf(txtFieldThree.getText())), String.valueOf(cmbFieldFour.getSelectedItem()), chkGOne.isSelected(), chkGTwo.isSelected(), chkGThree.isSelected())
                     : type.equals("Store") ? new GroceryStore(govAddress, "GS-" + nextID("GS", places), govName, comboExtract(cmbFieldOne), Integer.valueOf(String.valueOf(txtFieldThree.getText())), comboExtract(cmbFieldTwo), Boolean.parseBoolean(String.valueOf(cmbFieldFour)), Boolean.parseBoolean(String.valueOf(cmbFieldFive.getSelectedItem())))
                     : type.equals("Mall") ? new Mall(govAddress, "ML-" + nextID("ML", places), govName, comboExtract(cmbFieldOne), comboExtract(cmbFieldTwo), Integer.valueOf(txtFieldThree.getText()), Boolean.parseBoolean(String.valueOf(cmbFieldFour.getSelectedItem())), Boolean.parseBoolean(String.valueOf(cmbFieldFive)))
                     : type.equals("Hospital") ? new Hospital(govAddress, "HP-" + nextID("HP", places), comboExtract(cmbFieldOne), comboExtract(cmbFieldTwo), govName, Integer.valueOf(String.valueOf(txtFieldThree.getText())))
                     : type.equals("Emergency Service") ? new EmergencyServiceStation(govAddress, "ES-" + nextID("ES", places), govName, Integer.valueOf(String.valueOf(cmbFieldOne.getSelectedItem())), comboExtract(cmbFieldTwo), String.valueOf(cmbFieldFour.getSelectedItem()))
                     : type.equals("Community Centre") ? new CommunityCentre(govAddress, "CC-" + nextID("CC", places), govName, comboExtract(cmbFieldOne), comboExtract(cmbFieldTwo), chkGOne.isSelected(), chkGTwo.isSelected(), chkGThree.isSelected())
                     : type.equals("Park") ? new Park(govAddress, "PK-" + nextID("PK", places), govName, Double.valueOf(String.valueOf(txtFieldThree.getText())), comboExtract(cmbFieldOne), chkGOne.isSelected(), chkGTwo.isSelected(), chkGThree.isSelected())
-                    : type.equals("Disposal Centre") ? new GarbageDisposal(govAddress, "GD-" + nextID("GD", places), govName, comboExtract(cmbFieldOne)) 
+                    : type.equals("Disposal Centre") ? new GarbageDisposal(govAddress, "GD-" + nextID("GD", places), govName, comboExtract(cmbFieldOne))
                     : type.equals("Bus Stop") ? new BusStop(govAddress, "BS-" + nextID("BS", places), govName, comboExtract(cmbFieldOne))
                     : new SubwayStation(govAddress, "SW-" + nextID("SW", places), govName, comboExtract(cmbFieldOne));
 
             places.add(landmark); // add to places list
             roads.add(new Road(govStart, landmark, govDistance)); // create roads from and to the location 
             roads.add(new Road(landmark, govStart, govDistance));
-            
-            System.out.println(places.get(places.size()-1).getId() + " " + roads.get(roads.size()-2).toString());
+
+            System.out.println(places.get(places.size() - 1).getId() + " " + roads.get(roads.size() - 2).toString());
             screenRoute(dSimModes, jPanel6);
             dGovBuild.dispose(); // close government screens to return to menu after a success build
             dGovDes.dispose();
         } catch (NumberFormatException e) {
             System.out.println(e);
             gBuildFeedback.setText("Input malformed, Numbers only");
-        } 
-    }//GEN-LAST:event_btnGBuildActionPerformed
-    
+        }
+    }                                         
+
     // when building type is changed in government build screen
-    private void cmbGBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGBuildTypeActionPerformed
+    private void cmbGBuildTypeActionPerformed(java.awt.event.ActionEvent evt) {                                              
         cmbFieldTwo.setVisible(true);
         txtFieldThree.setVisible(true);
         cmbFieldFour.setVisible(false);
@@ -1027,83 +1050,74 @@ public class SimEstate extends javax.swing.JFrame {
         chkGOne.setVisible(false);
         chkGTwo.setVisible(false);
         chkGThree.setVisible(false);
-        
+
         // adjust UI based on user selected build type
-        if(cmbGBuildType.getSelectedItem().equals("School")) { // set labels and dropdown options (via string arrays) different in each case
+        if (cmbGBuildType.getSelectedItem().equals("School")) { // set labels and dropdown options (via string arrays) different in each case
             cmbFieldFour.setVisible(true);
-            govConfig("Ranking:", "Private:", "Tuition:", "Grade Level", "Special Programs:", new String[]{"+10", "+20", "+50", "+100"}, new String[]{"true", "false"}, new String[] {"Elementary", "Secondary", "Post-Secondary"}, new String[]{"IB", "Gifted", "French Immersion"});
-            
+            govConfig("Ranking:", "Private:", "Tuition:", "Grade Level", "Special Programs:", new String[]{"+10", "+20", "+50", "+100"}, new String[]{"true", "false"}, new String[]{"Elementary", "Secondary", "Post-Secondary"}, new String[]{"IB", "Gifted", "French Immersion"});
+
             ameninitySet("iB", "Gifted", "French"); // if applicable set and reveal amenity options
-        }
-        else if(cmbGBuildType.getSelectedItem().equals("Store")) {
+        } else if (cmbGBuildType.getSelectedItem().equals("Store")) {
             cmbFieldFour.setVisible(true);
             cmbFieldFive.setVisible(true);
-            govConfig("Floors", "Affordability", "Capacity", "Pharmacy", "Bakery", new String[] {"1", "2", "3"}, new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"true", "false"}, new String[] {"true", "false"});
-        } 
-        else if(cmbGBuildType.getSelectedItem().equals("Mall")) {
+            govConfig("Floors", "Affordability", "Capacity", "Pharmacy", "Bakery", new String[]{"1", "2", "3"}, new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{"true", "false"}, new String[]{"true", "false"});
+        } else if (cmbGBuildType.getSelectedItem().equals("Mall")) {
             cmbFieldFour.setVisible(true);
             cmbFieldFive.setVisible(true);
-            govConfig("Floors", "Capacity", "Stores", "Cinema", "Food Court", new String[] {"1", "2", "3"}, new String[] {"100", "200", "300", "400", "500"}, new String[] {"true", "false"}, new String[] {"true", "false"});
-        } 
-        else if(cmbGBuildType.getSelectedItem().equals("Hospital")) {
-            govConfig("Sustainability", "Floors", "Capacity", "", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"1", "2", "3", "4", "5"}, new String[] {}, new String[] {});
-        }
-        else if(cmbGBuildType.getSelectedItem().equals("Emergency Service")) {
+            govConfig("Floors", "Capacity", "Stores", "Cinema", "Food Court", new String[]{"1", "2", "3"}, new String[]{"100", "200", "300", "400", "500"}, new String[]{"true", "false"}, new String[]{"true", "false"});
+        } else if (cmbGBuildType.getSelectedItem().equals("Hospital")) {
+            govConfig("Sustainability", "Floors", "Capacity", "", "", new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{"1", "2", "3", "4", "5"}, new String[]{}, new String[]{});
+        } else if (cmbGBuildType.getSelectedItem().equals("Emergency Service")) {
             txtFieldThree.setVisible(false);
             cmbFieldFour.setVisible(true);
-            govConfig("Sustainability", "Floors", "", "Service Type", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"1", "3", "10", "20"}, new String[] {"Police", "Fire"}, new String[] {});
-        }
-        else if(cmbGBuildType.getSelectedItem().equals("Community Centre")) {
+            govConfig("Sustainability", "Floors", "", "Service Type", "", new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{"1", "3", "10", "20"}, new String[]{"Police", "Fire"}, new String[]{});
+        } else if (cmbGBuildType.getSelectedItem().equals("Community Centre")) {
             txtFieldThree.setVisible(false);
-            govConfig("Sustainability", "Floors", "", "", "Ammenities", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {"1", "2", "3", "4"}, new String[] {}, new String[] {});
-            
+            govConfig("Sustainability", "Floors", "", "", "Ammenities", new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{"1", "2", "3", "4"}, new String[]{}, new String[]{});
+
             ameninitySet("Pool", "Gym", "Rink");
-        }
-        else if(cmbGBuildType.getSelectedItem().equals("Park")) {
+        } else if (cmbGBuildType.getSelectedItem().equals("Park")) {
             cmbFieldTwo.setVisible(false);
-            govConfig("Clean Rating", "", "Area", "", "Ammenities", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {}, new String[] {}, new String[] {});
-            
+            govConfig("Clean Rating", "", "Area", "", "Ammenities", new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{}, new String[]{}, new String[]{});
+
             ameninitySet("Baseball", "Soccer", "Splash Pad");
-        }
-        else if(cmbGBuildType.getSelectedItem().equals("Disposal Centre")) {
+        } else if (cmbGBuildType.getSelectedItem().equals("Disposal Centre")) {
             cmbFieldTwo.setVisible(false);
             txtFieldThree.setVisible(false);
-            govConfig("Pollution", "", "", "", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {}, new String[] {}, new String[] {}); 
-        }
-        else {
+            govConfig("Pollution", "", "", "", "", new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{}, new String[]{}, new String[]{});
+        } else {
             cmbFieldTwo.setVisible(false);
             txtFieldThree.setVisible(false);
-            govConfig("Busyness", "", "", "", "", new String[] {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[] {}, new String[] {}, new String[] {});
+            govConfig("Busyness", "", "", "", "", new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"}, new String[]{}, new String[]{}, new String[]{});
         }
-        
-    }//GEN-LAST:event_cmbGBuildTypeActionPerformed
-    
+
+    }                                             
+
     // when a item is selected in the buy list in the buyer mode
-    private void buyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_buyListValueChanged
+    private void buyListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                     
         if (!evt.getValueIsAdjusting() && buyList.getSelectedIndex() != -1) { // only run on the mouse click release event
             // Get the selected address from the buyList
             String adr = buyList.getSelectedValue();
 
             // Find the corresponding ResidentialBuilding using the addressSearch function
             ResidentialBuilding openHouse = ((ResidentialBuilding) addressSearch(adr, residentialBuildings));
-            
+
             // Update the distance & price of the selected ResidentialBuilding
             updateDistance(openHouse);
-            
+
             // Update the UI elements to display the details of the selected ResidentialBuilding
             lblUnits.setVisible(false);
             lblGym.setVisible(false);
             lblBathrooms.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
             lblYard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
             lblBonus.setIcon(openHouse.isBonus() == true ? new javax.swing.ImageIcon(getClass().getResource("/proxBonus.png")) : new javax.swing.ImageIcon(getClass().getResource("/proxPenalty.png")));
-            
+
             // Check the type of the selected ResidentialBuilding and customize the UI accordingly
-            if(openHouse.getId().contains("HH")) {
+            if (openHouse.getId().contains("HH")) {
                 backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy House.png")));
                 lblYard.setText(String.valueOf(((House) openHouse).getBackyardSize()) + " sqft");
                 lblParking.setText(String.valueOf(openHouse.getParkingSpaces()));
-            }
-            else if(openHouse.getId().contains("TH")) {
+            } else if (openHouse.getId().contains("TH")) {
                 backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy Townhouse.png")));
                 lblYard.setText(String.valueOf(((Townhouse) openHouse).getBackyardSize()) + " sqft");
                 lblParking.setText(String.valueOf(openHouse.getParkingSpaces()));
@@ -1111,7 +1125,7 @@ public class SimEstate extends javax.swing.JFrame {
                 backdropBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Buy Apartment.png")));
                 lblBathrooms.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 lblYard.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-                
+
                 lblUnits.setVisible(true);
                 lblUnits.setText(String.valueOf(((Apartment) openHouse).getNumUnits()));
                 lblGym.setVisible(true);
@@ -1119,27 +1133,25 @@ public class SimEstate extends javax.swing.JFrame {
                 lblParking.setText(String.valueOf(((Apartment) openHouse).getHasPool()));
                 lblYard.setText(String.valueOf(((Apartment) openHouse).getHasTennisCourt()));
             }
-            
+
             lblPrice.setText("$" + round(openHouse.getPrice()));
             lblAddress.setText(adr.toUpperCase());
             lblArea.setText(openHouse.getSurfaceArea() + " sqft");
             lblFloors.setText(String.valueOf(openHouse.getNumFloors()));
             lblBedrooms.setText(String.valueOf(openHouse.getNumBedrooms()));
             lblBathrooms.setText(String.valueOf(openHouse.getNumBathrooms()));
-            
-            
+
         }
-    }//GEN-LAST:event_buyListValueChanged
+    }                                    
 
     // when the proximity (aka i or info icon) button is hit on the buyer screen
-    private void btnProximityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximityActionPerformed
+    private void btnProximityActionPerformed(java.awt.event.ActionEvent evt) {                                             
         if (buyList.getSelectedValue() != null) { // Check if an item is selected in the buyList
             String adr = buyList.getSelectedValue(); // Get the selected address from the buyList
             ResidentialBuilding openHouse = (ResidentialBuilding) addressSearch(adr, residentialBuildings); // Find the corresponding ResidentialBuilding using the addressSearch function
             String[] proxArray = openHouse.getNearestDistances(); // Get the array of nearest distances for the selected ResidentialBuilding
 
             // Set up and display the proximity dialog to show the nearest distances
-
             dProximity.setSize(465, 430);
             dProximity.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
             lblHP.setText(proxArray[0] + " km");
@@ -1153,16 +1165,16 @@ public class SimEstate extends javax.swing.JFrame {
             lblPK.setText(proxArray[8] + " km");
             lblBS.setText(proxArray[9] + " km");
             lblSW.setText(proxArray[10] + " km");
-            
+
             dProximity.setVisible(true);
         }
-    }//GEN-LAST:event_btnProximityActionPerformed
+    }                                            
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -1190,7 +1202,7 @@ public class SimEstate extends javax.swing.JFrame {
                 SimEstate frame = new SimEstate();
                 frame.setSize(735, 445);
                 frame.setVisible(true);
-                
+
                 // ---------------------------------------------DEFAULT CONFIG--------------------------------------------------------------------------//
                 House house1 = new House("141 CAMBRIDGE CRES", "HH-01", 1000, 7, 7, 0, 8, 3, 4000);
                 House house2 = new House("88 Briggs Avenue", "HH-02", 400, 3, 4, 0, 5, 4, 2500);
@@ -1277,10 +1289,10 @@ public class SimEstate extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // This method clears all the text fields and resets the combo boxes in a given panel. It then sets the size, modality, and visibility of a dialog window.
     public void screenRoute(javax.swing.JDialog dialog, javax.swing.JPanel panel) {
-        
+
         for (Component control : panel.getComponents()) { // iterate through all textfields and combo boxes on the last screen and clear them
             if (control instanceof javax.swing.JTextField) {
                 javax.swing.JTextField ctrl = (javax.swing.JTextField) control;
@@ -1290,19 +1302,19 @@ public class SimEstate extends javax.swing.JFrame {
                 ctr.setSelectedIndex(0); // reset combo boxes to the first index
             }
         }
-        
+
         dialog.setSize(735, 445); // set window size
         dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL); // set modality to block input from windows other than this one
-        dialog.setVisible(true);      
+        dialog.setVisible(true);
     }
-    
+
     // This method creates and returns a DefaultComboBoxModel based on the selected item in a given combo box.
     // If the selected item is "Residential", it populates the model with addresses of residential buildings.
     // Otherwise, it populates the model with names of places other than residential buildings
     public DefaultComboBoxModel<String> desModel(javax.swing.JComboBox combo) {
-        if(combo.getSelectedItem().equals("Residential")) {
+        if (combo.getSelectedItem().equals("Residential")) {
             ArrayList<String> resList = new ArrayList<String>();
-            for(int i = 0; i < residentialBuildings.size(); i++) {
+            for (int i = 0; i < residentialBuildings.size(); i++) {
                 resList.add(residentialBuildings.get(i).getAddress());
             }
 
@@ -1311,8 +1323,8 @@ public class SimEstate extends javax.swing.JFrame {
             return resModel;
         } else {
             ArrayList<String> markList = new ArrayList<String>();
-            for(int i = 0; i < places.size(); i++) {
-                if(places.get(i).getId().contains("HH") == false && places.get(i).getId().contains("AB") == false && places.get(i).getId().contains("TH") == false) { // ignore residential buildings
+            for (int i = 0; i < places.size(); i++) {
+                if (places.get(i).getId().contains("HH") == false && places.get(i).getId().contains("AB") == false && places.get(i).getId().contains("TH") == false) { // ignore residential buildings
                     markList.add(places.get(i).getName());
                 }
             }
@@ -1322,26 +1334,26 @@ public class SimEstate extends javax.swing.JFrame {
             return markModel;
         }
     }
-    
+
     // This method configures the labels and combo boxes based on the selected "Build Type" in the GUI.
     // It sets the labels and populates the combo boxes with given arrays.
-    public void govConfig(String one, String two, String three, String four, String five, 
+    public void govConfig(String one, String two, String three, String four, String five,
             String[] modelOne, String[] modelTwo, String[] modelFour, String[] modelFive) {
         lblFieldOne.setText(one);
         cmbFieldOne.setModel(new DefaultComboBoxModel<>(modelOne));
-        
+
         lblFieldTwo.setText(two);
         cmbFieldTwo.setModel(new DefaultComboBoxModel<>(modelTwo));
-        
+
         lblFieldThree.setText(three);
-        
+
         lblFieldFour.setText(four);
         cmbFieldFour.setModel(new DefaultComboBoxModel<>(modelFour));
-        
+
         lblFieldFive.setText(five);
         cmbFieldFive.setModel(new DefaultComboBoxModel<>(modelFive));
     }
-    
+
     // This method sets the visibility and text of three checkboxes representing amenities.
     public void ameninitySet(String first, String second, String third) {
         chkGOne.setVisible(true);
@@ -1351,52 +1363,52 @@ public class SimEstate extends javax.swing.JFrame {
         chkGThree.setVisible(true);
         chkGThree.setText(third);
     }
-    
+
     // This method extracts an integer value from the selected item of a given combo box.
     public int comboExtract(javax.swing.JComboBox combo) {
         return Integer.valueOf(String.valueOf(combo.getSelectedItem()));
     }
-    
+
     // This method searches for a place in the list based on its name.
     // It compares the given name (case-insensitive) with the names of places in the list and returns the matching place.
     // If no match is found, it returns null.
     public Place nameSearch(String name, ArrayList<Place> places) {
-        for(int i = 0; i < places.size(); i++) {
-            if((places.get(i).getName().toLowerCase()).equals(name.toLowerCase())) {
+        for (int i = 0; i < places.size(); i++) {
+            if ((places.get(i).getName().toLowerCase()).equals(name.toLowerCase())) {
                 return places.get(i);
             }
         }
-        
+
         return null;
     }
-    
+
     // This method searches for a place in the list based on its address.
     // It compares the given address (case-insensitive) with the addresses of places in the list and returns the matching place.
     // If no match is found, it returns null.
     public Place addressSearch(String address, ArrayList<? extends Place> residences) {
-        for(int i = 0; i < residences.size(); i++) {
-            if((residences.get(i).getAddress().toLowerCase()).equals(address.toLowerCase())) {
+        for (int i = 0; i < residences.size(); i++) {
+            if ((residences.get(i).getAddress().toLowerCase()).equals(address.toLowerCase())) {
                 return residences.get(i);
             }
         }
-        
+
         return null;
     }
-    
+
     // This method generates the next ID for a new place based on the given placeCode and list of places.
     // It searches for the last ID in the list that starts with the given placeCode and increments it to generate the next ID.
     // If no matching IDs are found, it returns the default ID "01".
     public String nextID(String placeCode, ArrayList<? extends Place> list) {
         String lastID = "";
-        for(int i = 0; i < list.size(); i++) {
-            if(list.get(i).getId().substring(0, 2).equals(placeCode)) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId().substring(0, 2).equals(placeCode)) {
                 lastID = (list.get(i).getId()).substring(3);
             }
         }
 
-        if(!lastID.isEmpty()&& lastID != null) {
-            if(Character.getNumericValue(lastID.charAt(0)) == 0) {
-                String numId = Integer.valueOf(lastID.charAt(1)) != 9 ?  "0" + (Character.getNumericValue(lastID.charAt(1)) + 1) : "10";
+        if (!lastID.isEmpty() && lastID != null) {
+            if (Character.getNumericValue(lastID.charAt(0)) == 0) {
+                String numId = Integer.valueOf(lastID.charAt(1)) != 9 ? "0" + (Character.getNumericValue(lastID.charAt(1)) + 1) : "10";
                 return numId;
             } else {
                 return String.valueOf((Integer.valueOf(lastID)) + 1);
@@ -1405,24 +1417,22 @@ public class SimEstate extends javax.swing.JFrame {
             return "01";
         }
     }
-    
+
     // This method rounds a double value to two decimal places.
     public static double round(double number) {
-      // Multiply the number by 100 to shift the decimal point two places to the right
-      double roundedValue = number * 100;
-     
-      // Use Math.round() to round the shifted value to the nearest integer
-      roundedValue = Math.round(roundedValue);
-      
-      // Divide the rounded value by 100 to shift the decimal point back to its original position
-      roundedValue = roundedValue / 100;
-      
-      return roundedValue;
-  }
-    
-    
+        // Multiply the number by 100 to shift the decimal point two places to the right
+        double roundedValue = number * 100;
+
+        // Use Math.round() to round the shifted value to the nearest integer
+        roundedValue = Math.round(roundedValue);
+
+        // Divide the rounded value by 100 to shift the decimal point back to its original position
+        roundedValue = roundedValue / 100;
+
+        return roundedValue;
+    }
+
     //-------------------------------------ALGORITHMS-------------------------------------------------//
-        
     // Method to calculate the distance between a home to all other places
     public static void calculateAllDistancesForAHome(ResidentialBuilding home) {
         // Create a new adjacency list to store the connections between places and roads
@@ -1443,7 +1453,7 @@ public class SimEstate extends javax.swing.JFrame {
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(adjacencyList);
         // Create a distanceMap to store the distances from this house to all places
         Map<Place, Integer> distanceMap = dijkstra.shortestPaths(home);
-        
+
         double basePrice = home.getPrice();
         // Output the shortest paths from Place A to all other Placesdouble initialPrice = basePrice;
         for (Place place : distanceMap.keySet()) {
@@ -1475,7 +1485,7 @@ public class SimEstate extends javax.swing.JFrame {
                 home.addPrice(basePrice * 0.1 * ((100 - distanceMap.get(place)) / 100.0));
                 if (((School) place).getRanking() == 10) {
                     home.addPrice(basePrice * 0.05);
-                } else if (((School) place).getRanking() < 20){
+                } else if (((School) place).getRanking() < 20) {
                     home.addPrice(basePrice * 0.02);
                 } else {
                     home.addPrice(basePrice * -0.05);
@@ -1557,30 +1567,28 @@ public class SimEstate extends javax.swing.JFrame {
                 home.addPrice(basePrice * -0.01 * ((GarbageDisposal) place).getPollution());
             }
         }
-        
+
         home.setBonus(basePrice < home.getPrice() ? true : false); // Set a bonus flag for the home if it its value rose from the algorithm
         System.out.println("Valuation: $" + home.getPrice());
     }
-    
+
     //Method to update all the distances
     public static void updateDistance(ResidentialBuilding rb) {
-        if(rb instanceof House) {
+        if (rb instanceof House) {
             ((House) rb).setPrice(House.calculateHousePrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms(), rb.getParkingSpaces(), ((House) rb).getBackyardSize()));
-        } 
-        else if(rb instanceof Townhouse) {
-            ((Townhouse) rb).setPrice(Townhouse.calculateHousePrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms(), rb.getParkingSpaces(), ((House) rb).getBackyardSize())); 
-        }
-        else {
+        } else if (rb instanceof Townhouse) {
+            ((Townhouse) rb).setPrice(Townhouse.calculateHousePrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms(), rb.getParkingSpaces(), ((Townhouse) rb).getBackyardSize()));
+        } else {
             ((Apartment) rb).setPrice(Apartment.calculateApartmentPrice(rb.getSurfaceArea(), rb.getNumBathrooms(), rb.getNumBedrooms()));
         }
-        
+
         rb.clearLists(); // Clear all the lists of distances in the ResidentialBuilding
         calculateAllDistancesForAHome(rb); // Calculate all the distances  from this ResidentialBuilding to all other places and price
         rb.sortDistances(); // Sort the distances for easy access to nearest places
     }
-    
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel backDrop;
     private javax.swing.JLabel backDropModes;
     private javax.swing.JLabel backdropBuy;
@@ -1679,5 +1687,5 @@ public class SimEstate extends javax.swing.JFrame {
     private javax.swing.JTextField txtGAddress;
     private javax.swing.JTextField txtGDistance;
     private javax.swing.JTextField txtGName;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
